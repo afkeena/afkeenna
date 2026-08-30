@@ -188,6 +188,7 @@ main{padding:18px 16px 8px; max-width:640px; margin:0 auto;}
   padding:18px; margin-bottom:12px; position:relative;
 }
 .proverb .mark{position:absolute; top:10px; right:14px; font-family:'Fraunces',serif; font-size:34px; color:var(--gold); opacity:0.5;}
+.proverb .catTag{display:inline-block; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:var(--teal-dk); background:rgba(47,93,80,0.1); border-radius:20px; padding:3px 10px; margin-bottom:8px;}
 .proverb .so{font-family:'Fraunces',serif; font-size:18px; font-weight:600; color:var(--night); line-height:1.4; padding-right:30px;}
 .proverb .en{font-size:13px; margin-top:8px; opacity:0.7; font-style:italic;}
 .proverb .note{font-size:12.5px; margin-top:8px; color:var(--teal-dk); border-top:1px dashed var(--line); padding-top:8px;}
@@ -199,7 +200,7 @@ main{padding:18px 16px 8px; max-width:640px; margin:0 auto;}
 .credit-block p{font-size:13px; line-height:1.6; margin:0; opacity:0.85;}
 .credit-block.small{background:transparent; border:1px dashed var(--line); font-size:12px; opacity:0.75; padding:12px 14px;}
 .credit-block.small a{color:var(--henna-dk); font-weight:700; text-decoration:underline;}
-.letterGrid{display:grid; grid-template-columns:repeat(5, 1fr); gap:8px; margin-bottom:16px;}
+.letterGrid{display:grid; grid-template-columns:repeat(3, 1fr); gap:8px; margin-bottom:16px;}
 .letterCard{
   background:#fff; border:1px solid var(--line); border-radius:12px; padding:14px 4px; text-align:center;
   font-family:'Fraunces',serif; font-weight:700; font-size:16px; color:var(--night); cursor:pointer; text-decoration:none; display:block;
@@ -281,6 +282,10 @@ body.lang-en [data-so]{display:none;}
       <h2 data-so>Qaamuuska</h2><h2 data-en>Dictionary</h2>
       <span class="count" id="dictCount"></span>
     </div>
+    <div class="credit-block small">
+      <span data-so>Ereyada rasmiga ah ee 2012 waxaad ka heli kartaa <a href="https://www.qaamuuska.org" target="_blank" rel="noopener">qaamuuska.org</a>. Halkan waxaan ku ururinaynaa ereyo cusub, kuwo af-dhaqameed, iyo ereyo Soomaali ah oo laga yaabo in Carabi lagu bedelay — si aanay u lumin.</span>
+      <span data-en>For the official 2012 dictionary, see <a href="https://www.qaamuuska.org" target="_blank" rel="noopener">qaamuuska.org</a>. This space is for new words, dialect terms, and original Somali words being displaced by Arabic borrowings — so they aren't lost.</span>
+    </div>
     <div class="searchbar">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       <input id="dictSearch" data-placeholder-so="Raadi eray..." data-placeholder-en="Search a word..." placeholder="Raadi eray...">
@@ -307,6 +312,10 @@ body.lang-en [data-so]{display:none;}
       <h2 data-so>Kaydka Dhaqanka</h2><h2 data-en>Heritage Archive</h2>
       <span class="count" id="archiveCount"></span>
     </div>
+    <div class="credit-block small">
+      <span data-so>Maahmaahyo, sheekooyin, iyo caadooyin — sida aroosyada dhaqameed, xeerarka, iyo dhaqannada qoyska — oo badankood aan meel qoran ku jirin. Ku dar wixii aad taqaan intii aan la illoobin.</span>
+      <span data-en>Proverbs, stories, and customs — traditional weddings, rites, and family practices — most of it unwritten anywhere. Add what you know before it's forgotten.</span>
+    </div>
     <div id="archiveList"></div>
     <button class="fab" id="addProverbFab" title="Ku dar maahmaah">+</button>
   </section>
@@ -317,14 +326,20 @@ body.lang-en [data-so]{display:none;}
       <h2 data-so>Maktabadda Rasmiga ah</h2><h2 data-en>Official Reference Library</h2>
     </div>
     <div class="credit-block">
-      <p data-so>Qaamuuska buuxa ee <strong>Qaamuuska Af-Soomaaliga</strong> (2012), oo ay diyaariyeen <strong>Annarita Puglielli</strong> iyo <strong>Cabdalla Cumar Mansuur</strong>, waxaana daabacay <strong>RomaTrE-Press / Centro Studi Somali, Università degli Studi Roma Tre</strong>. Waxaa la heli karaa si bilaash ah oo shati <strong>CC BY-NC-ND</strong> ah, si buuggu isaga u sii jiro isaga oo aan la beddelin. Halkan ku taabo xaraf si aad u furto faylka rasmiga ah.</p>
-      <p data-en>The complete <strong>Qaamuuska Af-Soomaaliga</strong> (2012), prepared by <strong>Annarita Puglielli</strong> and <strong>Cabdalla Cumar Mansuur</strong>, published by <strong>RomaTrE-Press / Centro Studi Somali, Università degli Studi Roma Tre</strong>. Shared under a <strong>CC BY-NC-ND</strong> license — kept exactly as published. Tap a letter below to open the official file.</p>
+      <p data-so>Qaamuuska buuxa ee <strong>Qaamuuska Af-Soomaaliga</strong> (2012), oo ay diyaariyeen <strong>Annarita Puglielli</strong> iyo <strong>Cabdalla Cumar Mansuur</strong>, waxaana daabacay <strong>RomaTrE-Press / Centro Studi Somali, Università degli Studi Roma Tre</strong>. Shatigu waa <strong>CC BY-NC-ND</strong>, sidaas darteed faylasha halkan lagu keydiyay waa kuwo aan la beddelin, si loo ilaaliyo xaqa qoraaga. Waxaa lagu keydiyay Afkeenna si aanay u lumin haddii boggii asalka ahaa hoos u dhaco.</p>
+      <p data-en>The complete <strong>Qaamuuska Af-Soomaaliga</strong> (2012), prepared by <strong>Annarita Puglielli</strong> and <strong>Cabdalla Cumar Mansuur</strong>, published by <strong>RomaTrE-Press / Centro Studi Somali, Università degli Studi Roma Tre</strong>. Licensed <strong>CC BY-NC-ND</strong> — kept unmodified. Mirrored here so it stays available even if the original archive goes down.</p>
     </div>
     <div class="letterGrid" id="letterGrid"></div>
     <div class="credit-block small">
+      <span data-so>Nuqul buuxa oo aan la beddelin ayaa halkan ku kaydsan (afkeenna.somalibd.com) haddii boggan hoos u dhaco — </span><span data-en>A complete, unmodified backup copy is also mirrored here (afkeenna.somalibd.com) in case the links above ever go down — </span>
+      <a href="QAAMUUSKA_AF_SOOMAALIGA.pdf" target="_blank" rel="noopener">
+        <span data-so>fur nuqulka kaydka ah</span><span data-en>open the backup copy</span>
+      </a>.
+    </div>
+    <div class="credit-block small">
       <span data-so>Waxaad kaloo heli kartaa qaamuuskii ugu horreeyay, mid uu diyaariyay </span><span data-en>Also available: the first-ever monolingual Somali dictionary, prepared by </span>
       <strong>Yaasiin C. Keenadiid</strong> (1976) —
-      <a href="https://arcadia.sba.uniroma3.it/bitstream/2307/2021/1/Dizionario%20Yaasiin%20C.%20Keenadiid.pdf" target="_blank" rel="noopener">
+      <a href="Dizionario%20Yaasiin%20C.%20Keenadiid.pdf" target="_blank" rel="noopener">
         <span data-so>fur PDF-ka</span><span data-en>open PDF</span>
       </a>.
     </div>
@@ -385,10 +400,18 @@ body.lang-en [data-so]{display:none;}
 <!-- Add proverb modal -->
 <div class="overlay" id="proverbOverlay">
   <div class="modal">
-    <h3 data-so>Ku dar maahmaah</h3><h3 data-en>Add a proverb</h3>
+    <h3 data-so>Ku dar wax dhaqameed</h3><h3 data-en>Add a heritage entry</h3>
     <div class="field">
-      <label data-so>Maahmaahda (Af Soomaali)</label><label data-en>Proverb (Somali)</label>
-      <textarea id="p-so" placeholder="Qor maahmaahda halka..."></textarea>
+      <label data-so>Nooca</label><label data-en>Type</label>
+      <select id="p-cat">
+        <option value="maahmaah" data-so="Maahmaah" data-en="Proverb">Maahmaah</option>
+        <option value="sheeko" data-so="Sheeko" data-en="Story">Sheeko</option>
+        <option value="dhaqan" data-so="Caado/Dhaqan" data-en="Custom/Tradition">Caado/Dhaqan</option>
+      </select>
+    </div>
+    <div class="field">
+      <label data-so>Qoraalka (Af Soomaali)</label><label data-en>Text (Somali)</label>
+      <textarea id="p-so" placeholder="Qor halkan..."></textarea>
     </div>
     <div class="field">
       <label data-so>Turjumaad (Ingiriisi)</label><label data-en>Translation (English)</label>
@@ -437,7 +460,126 @@ const SEED_WORDS = [
   {term:"Walaal", tag:"Magac", def:"Qof isku hooyo ama isku aabbe ah, ama sax-sax loola dhaqmo sida qaraabo.", ex:"Waan la hadlay walaalkay.", en:"Sibling — a brother or sister; also used warmly for a close friend."},
   {term:"Saaxiib", tag:"Magac", def:"Qof aad jeceshahay oo aad wax badan la wadaagto, laakiin aan qaraabo ahayn.", ex:"Waa saaxiibkay ugu fiican.", en:"Friend — someone close and trusted, not a relative."},
   {term:"Nabad", tag:"Magac", def:"Xaalad aan colaad ku jirin, deggenaan iyo amni.", ex:"Waxaan rajeynaynaa nabad joogto ah.", en:"Peace — a state free of conflict, calm and security."},
-  {term:"Hodan", tag:"Tilmaame", def:"Mid hanti badan leh, ama nolosha wax-ku-filan.", ex:"Waa qoys hodan ah.", en:"Wealthy / prosperous — possessing abundance or resources."}
+  {term:"Hodan", tag:"Tilmaame", def:"Mid hanti badan leh, ama nolosha wax-ku-filan.", ex:"Waa qoys hodan ah.", en:"Wealthy / prosperous — possessing abundance or resources."},
+  {term:"Ayeeyo", tag:"Magac", def:"Hooyada hooyo ama hooyada aabbe.", ex:"Ayeeyaday waxay sheegtaa sheekooyin qadiimi ah.", en:"Grandmother — the mother of one's mother or father."},
+  {term:"Awoowe", tag:"Magac", def:"Aabbaha aabbe ama aabbaha hooyo.", ex:"Awoowahay wuu ka hadlaa taariikhda beeshiisa.", en:"Grandfather — the father of one's father or mother."},
+  {term:"Ilmo", tag:"Magac", def:"Qof aan weli qaan-gaadhin, ama caruur guud ahaan.", ex:"Ilmuhu waxay ku ciyaaraan bannaanka.", en:"Child — a young person, or children in general."},
+  {term:"Qoys", tag:"Magac", def:"Xubnaha isku dhashay ama isku guursaday oo wada nool.", ex:"Qoyskaygu waa wax badan.", en:"Family — the members related by blood or marriage who live together."},
+  {term:"Adeer", tag:"Magac", def:"Walaalka aabbe.", ex:"Adeerkay wuxuu ka shaqeeyaa magaalada kale.", en:"Paternal uncle — the brother of one's father."},
+  {term:"Abti", tag:"Magac", def:"Walaalka hooyo.", ex:"Abtigay ayaa noo yimid ciidda.", en:"Maternal uncle — the brother of one's mother."},
+  {term:"Eedo", tag:"Magac", def:"Walaasha aabbe.", ex:"Eedadey waxay noo keentay hadiyad.", en:"Paternal aunt — the sister of one's father."},
+  {term:"Habaryar", tag:"Magac", def:"Walaasha hooyo.", ex:"Habaryartay waxay ila fadhiisaa maalin walba.", en:"Maternal aunt — the sister of one's mother."},
+  {term:"Naag", tag:"Magac", def:"Haweenay guursatay ama qaan-gaar ah.", ex:"Naagtiisu waa dhakhtar.", en:"Woman / wife — an adult female, or one's wife."},
+  {term:"Nin", tag:"Magac", def:"Rag qaan-gaar ah.", ex:"Ninkani waa macallin.", en:"Man — an adult male."},
+  {term:"Miis", tag:"Magac", def:"Alaab guri oo lagu cuno ama wax lagu dul dhigo.", ex:"Cuntadu waxay ku taal miiska.", en:"Table — furniture used for eating or placing objects on."},
+  {term:"Kursi", tag:"Magac", def:"Alaab lagu fadhiisto.", ex:"Kursigu waa mid dabacsan.", en:"Chair — furniture for sitting."},
+  {term:"Sariir", tag:"Magac", def:"Meel la seexdo.", ex:"Sariirtu waa cusub.", en:"Bed — a piece of furniture for sleeping."},
+  {term:"Albaab", tag:"Magac", def:"Meesha laga soo galo ama laga baxo guriga.", ex:"Albaabka fur.", en:"Door — the entrance or exit of a building."},
+  {term:"Daaqad", tag:"Magac", def:"Godka dharaaraddiisa laga arko dibadda.", ex:"Daaqadda fur si hawadu u soo gasho.", en:"Window — an opening that lets in light and air."},
+  {term:"Weel", tag:"Magac", def:"Alaab wax lagu shubto ama lagu qaado.", ex:"Weelka biyo ka buux.", en:"Container / vessel — something used to hold liquids or objects."},
+  {term:"Jiko", tag:"Magac", def:"Qolka guriga ee cuntada lagu karsado.", ex:"Hooyaday waxay ku jirtaa jikada.", en:"Kitchen — the room where food is cooked."},
+  {term:"Musqul", tag:"Magac", def:"Qolka guriga ee dhaqashada iyo saxaraadda loo isticmaalo.", ex:"Musqusha ku dhow qolka jiifka.", en:"Bathroom / toilet — the room used for washing and sanitation."},
+  {term:"Dabaal", tag:"Magac", def:"Qalab dabka lagu shido ama lagu kariyo.", ex:"Dabaasha shid.", en:"Stove — a device used for cooking or lighting fire."},
+  {term:"Dhul", tag:"Magac", def:"Bar-dhig lagu socdo ama wax laga beero.", ex:"Dhulkani waa mid barwaaqo leh.", en:"Land / earth — ground for walking or farming."},
+  {term:"Badda", tag:"Magac", def:"Biyaha weyn ee cad-cad ee dunida ku wareegsan.", ex:"Baddu waa cad iyo weyn.", en:"The sea — the large body of salt water."},
+  {term:"Buur", tag:"Magac", def:"Dhul sarreeya oo aad u dheer.", ex:"Buurtaas waa mid dheer.", en:"Mountain — a very high landform."},
+  {term:"Geed", tag:"Magac", def:"Dhir dheer oo laamo iyo caleemo leh.", ex:"Geedku wuxuu leeyahay hoos qabow.", en:"Tree — a tall plant with branches and leaves."},
+  {term:"Webi", tag:"Magac", def:"Biyo socda oo dhulka ku qulqulaya.", ex:"Webigu waa mid weyn.", en:"River — flowing water across the land."},
+  {term:"Qorrax", tag:"Magac", def:"Meesha iftiinka iyo kulaylka dhulka u soo gudbiya.", ex:"Qorraxdu way soo baxday.", en:"Sun — the source of light and warmth."},
+  {term:"Dayax", tag:"Magac", def:"Jirka cirka ku wareega oo habeenkii iftiin yar bixiya.", ex:"Dayaxu wuu dhalaalayaa habeenka.", en:"Moon — the celestial body seen shining at night."},
+  {term:"Xiddig", tag:"Magac", def:"Iftiin yar oo habeenka cirka ka muuqda.", ex:"Xiddigaha ayaa cirka ka muuqda.", en:"Star — a small light visible in the night sky."},
+  {term:"Dabayl", tag:"Magac", def:"Hawada socota.", ex:"Dabaylu way kulushahay maanta.", en:"Wind — moving air."},
+  {term:"Ciid", tag:"Magac", def:"Wax dhulka ka mid ah oo tiirin ah.", ex:"Ciiddu waxay dhalisaa dhirta.", en:"Soil / sand — fine particles of the earth."},
+  {term:"Kulayl", tag:"Magac", def:"Heerkulka sare ee cimilada.", ex:"Maanta kulayl badan ayaa jira.", en:"Heat — high temperature in the weather."},
+  {term:"Qabow", tag:"Tilmaame", def:"Mid heerkulkiisu hooseeyo.", ex:"Biyahani way qabow yihiin.", en:"Cold — of low temperature."},
+  {term:"Cimilo", tag:"Magac", def:"Xaaladda hawada iyo cirka meel gaar ah.", ex:"Cimiladu waa mid wanaagsan.", en:"Climate / weather — the atmospheric condition of a place."},
+  {term:"Farxad", tag:"Magac", def:"Dareen wanaagsan oo qof dareemo marka wax fiican dhaco.", ex:"Farxad weyn ayaan dareemay.", en:"Joy / happiness — a positive feeling from good things happening."},
+  {term:"Murugo", tag:"Magac", def:"Dareen xun oo qof qabo marka wax xun dhaco.", ex:"Murugo ayaa i haysata.", en:"Sadness / sorrow — a heavy feeling from misfortune."},
+  {term:"Cabsi", tag:"Magac", def:"Dareen laga qabo khatar ama wax halis ah.", ex:"Cabsi ayay qabtay markay khatarta aragtay.", en:"Fear — the feeling caused by danger or threat."},
+  {term:"Jacayl", tag:"Magac", def:"Dareen weyn oo qof u qabo qof kale ama wax kale.", ex:"Jacaylka waalidka waa mid aan la beddeli karin.", en:"Love — a deep affection for someone or something."},
+  {term:"Xanaaq", tag:"Magac", def:"Dareen cadho ah oo ka dhasha rabsho ama gefid.", ex:"Xanaaqu wuu iga fiicnaaday.", en:"Anger — a strong feeling of displeasure."},
+  {term:"Niyad-jab", tag:"Magac", def:"Dareen ka dhasha guuldarro ama qalbi jab.", ex:"Niyad-jabku wuu ku dhacay ardayga.", en:"Discouragement — a feeling brought on by failure or disappointment."},
+  {term:"Cun", tag:"Falcelin", def:"In cunto la geliyo afka lana liqo.", ex:"Ilmuhu waxay cunayaan bariiska.", en:"To eat — to consume food."},
+  {term:"Cab", tag:"Falcelin", def:"In dareere afka lagu geliyo.", ex:"Biyo cab hadda.", en:"To drink — to consume liquid."},
+  {term:"Tag", tag:"Falcelin", def:"In meel laga socdo mid kale.", ex:"Waan tegayaa dukaanka.", en:"To go — to move toward a destination."},
+  {term:"Kaalay", tag:"Falcelin", def:"In qof loogu yeero inuu yimaado.", ex:"Kaalay halkan.", en:"Come — a call for someone to approach."},
+  {term:"Fadhii", tag:"Falcelin", def:"In jidh la dhigo kursi ama dhul ku dul.", ex:"Fadhii kursiga.", en:"To sit — to rest one's body on a seat or surface."},
+  {term:"Taagan", tag:"Falcelin", def:"In laf-dhabarta la taagto ee la joogo isla meel.", ex:"Wuu taagan yahay albaabka agtiisa.", en:"Standing — remaining upright in one place."},
+  {term:"Seexo", tag:"Falcelin", def:"In hurdo la galo.", ex:"Ilmuhu way seexatay.", en:"To sleep — to go into a state of rest."},
+  {term:"Toos", tag:"Falcelin", def:"In hurdo laga kaco.", ex:"Toos, waqtigu wuu dhamaaday.", en:"Wake up — to rise from sleep."},
+  {term:"Qor", tag:"Falcelin", def:"In erayo qalin lagu duubo warqad ama shaashad.", ex:"Wax qor markastaad barato.", en:"To write — to record words with a pen or on a screen."},
+  {term:"Akhri", tag:"Falcelin", def:"In wax qoran la fahmo iyadoo la eegayo.", ex:"Buugga akhri.", en:"To read — to comprehend written text by looking at it."},
+  {term:"Cayaar", tag:"Falcelin", def:"In lagu maaweelo hawl aan shaqo ahayn.", ex:"Caruurtu way ciyaarayaan.", en:"To play — to engage in recreational activity."},
+  {term:"Shaqee", tag:"Falcelin", def:"In hawl lagu kasbado maalgelin ama lacag.", ex:"Waan shaqeeyaa maalin walba.", en:"To work — to labor for income or accomplishment."},
+  {term:"Iibso", tag:"Falcelin", def:"In lacag lagu qaato alaab.", ex:"Waxaan iibsaday dhar cusub.", en:"To buy — to acquire something with money."},
+  {term:"Iibi", tag:"Falcelin", def:"In alaab lacag loogu beddesho.", ex:"Wuxuu iibiyaa khudradda.", en:"To sell — to exchange goods for money."},
+  {term:"Dar", tag:"Falcelin", def:"In dhar la xidho.", ex:"Dar dharkaaga hore.", en:"To wear — to put on clothing."},
+  {term:"Dhaq", tag:"Falcelin", def:"In wax la nadiifiyo biyo iyo saabuun.", ex:"Dhaq gacmahaaga.", en:"To wash — to clean with water and soap."},
+  {term:"Kari", tag:"Falcelin", def:"In cunto dab lagu diyaariyo.", ex:"Hooyo ayaa karinaysa cuntada.", en:"To cook — to prepare food with heat."},
+  {term:"Dheh", tag:"Falcelin", def:"In hadal lagu sheego.", ex:"Dheh magacaaga.", en:"To say — to speak words aloud."},
+  {term:"Maqal", tag:"Falcelin", def:"In dhegtu codka qabato.", ex:"Ma maqashay codka?", en:"To hear — to perceive sound."},
+  {term:"Arag", tag:"Falcelin", def:"In indhuhu wax garwaaqsadaan.", ex:"Ma aragtay geeljire?", en:"To see — to perceive with the eyes."},
+  {term:"Fiican", tag:"Tilmaame", def:"Mid tayo iyo qiimo leh.", ex:"Waa cunto fiican.", en:"Good — of positive quality."},
+  {term:"Xun", tag:"Tilmaame", def:"Mid aan wanaagsanayn.", ex:"Waa maalin xun.", en:"Bad — of negative quality."},
+  {term:"Cusub", tag:"Tilmaame", def:"Mid dhawaan la sameeyay ama la helay.", ex:"Baabuurkani waa cusub.", en:"New — recently made or acquired."},
+  {term:"Duug", tag:"Tilmaame", def:"Mid waqti dheer jiray oo aan cusub ahayn.", ex:"Dharkani waa duug.", en:"Old (worn) — used for a long time."},
+  {term:"Dheer", tag:"Tilmaame", def:"Mid dherer badan leh.", ex:"Geedku waa mid dheer.", en:"Tall / long — of great height or length."},
+  {term:"Gaaban", tag:"Tilmaame", def:"Mid dherer yar leh.", ex:"Wiilku waa gaaban.", en:"Short — of little height or length."},
+  {term:"Cad", tag:"Tilmaame", def:"Midab la mid ah caanaha.", ex:"Baabuurku waa cad.", en:"White — the color of milk."},
+  {term:"Madow", tag:"Tilmaame", def:"Midab la mid ah habeenka.", ex:"Kalluunku waa madow.", en:"Black — the color of night."},
+  {term:"Casaan", tag:"Tilmaame", def:"Midab la mid ah dhiigga.", ex:"Ubaxu waa casaan.", en:"Red — the color of blood."},
+  {term:"Cagaar", tag:"Tilmaame", def:"Midab la mid ah caleenta geedka.", ex:"Berrinku waa cagaar.", en:"Green — the color of leaves."},
+  {term:"Buluug", tag:"Tilmaame", def:"Midab la mid ah cirka.", ex:"Baddu waa buluug.", en:"Blue — the color of the sky."},
+  {term:"Adag", tag:"Tilmaame", def:"Mid aan jilicsanayn.", ex:"Dhagaxu waa adag.", en:"Hard — not soft."},
+  {term:"Jilicsan", tag:"Tilmaame", def:"Mid aan adkayn.", ex:"Roodhigu waa jilicsan.", en:"Soft — not hard."},
+  {term:"Fudud", tag:"Tilmaame", def:"Mid aan cuslayn.", ex:"Weelku waa fudud.", en:"Light (weight) — not heavy."},
+  {term:"Culus", tag:"Tilmaame", def:"Mid miisaankiisu badan yahay.", ex:"Sanduuqu waa culus.", en:"Heavy — of great weight."},
+  {term:"Madax", tag:"Magac", def:"Qaybta sare ee jidhka ee maskaxda ku jirto.", ex:"Madaxaygu wuu i xanuunayaa.", en:"Head — the top part of the body containing the brain."},
+  {term:"Il", tag:"Magac", def:"Xubinta lagu arko.", ex:"Ilaha nadiifi.", en:"Eye — the organ used for seeing."},
+  {term:"Dheg", tag:"Magac", def:"Xubinta lagu maqlo.", ex:"Dhegta bogsatay.", en:"Ear — the organ used for hearing."},
+  {term:"San", tag:"Magac", def:"Xubinta lagu ureeyo lana neefsado.", ex:"Sankiisa ayaa qabow yahay.", en:"Nose — the organ used for smelling and breathing."},
+  {term:"Af", tag:"Magac", def:"Xubinta lagu hadlo lagu cunana.", ex:"Afkiisa fur.", en:"Mouth — the organ used for speaking and eating."},
+  {term:"Gacan", tag:"Magac", def:"Xubinta lagu qabsado wax.", ex:"Gacanta dhaq.", en:"Hand — the limb used for grasping."},
+  {term:"Lug", tag:"Magac", def:"Xubinta lagu socdo.", ex:"Lugaha ku orod.", en:"Leg — the limb used for walking."},
+  {term:"Qalbi", tag:"Magac", def:"Xubinta dhiigga wareejisa jidhka.", ex:"Qalbigu si joogto ah ayuu u garaacaa.", en:"Heart — the organ that pumps blood through the body."},
+  {term:"Calool", tag:"Magac", def:"Xubinta gudaha ee cuntada lagu dheefsho.", ex:"Caloosha ayaa ii xanuunaysa.", en:"Stomach — the internal organ that digests food."},
+  {term:"Bariis", tag:"Magac", def:"Cunto laga sameeyo miro yaryar oo cad.", ex:"Bariiska hilibka la cun.", en:"Rice — a food made from small white grains."},
+  {term:"Hilib", tag:"Magac", def:"Cunto laga soo goyn xoolo.", ex:"Hilibka kari si fiican.", en:"Meat — food derived from animals."},
+  {term:"Caano", tag:"Magac", def:"Dareere cad oo xoolo laga lisho.", ex:"Caanaha cab subax kasta.", en:"Milk — a white liquid obtained from livestock."},
+  {term:"Muufo", tag:"Magac", def:"Cunto laga sameeyo daqiiqda dabka lagu karsado.", ex:"Muufo diyaari cashada.", en:"Flatbread — a bread cooked from flour over heat."},
+  {term:"Khudrad", tag:"Magac", def:"Dhir la cuno oo aan hilib ahayn.", ex:"Khudradda cun si aad u caafimaadsato.", en:"Vegetables — plant-based foods for eating."},
+  {term:"Miro", tag:"Magac", def:"Wax macaan oo geedaha ka baxa lana cuno.", ex:"Miraha dhirtu waa macaan.", en:"Fruit — sweet produce that grows on plants."},
+  {term:"Shaah", tag:"Magac", def:"Cabbitaan kulul oo laga sameeyo caleemo la karsaday.", ex:"Shaah cab subaxdii.", en:"Tea — a hot drink made from boiled leaves."},
+  {term:"Sonkor", tag:"Magac", def:"Wax macaan oo cuntada iyo cabitaanka lagu daro.", ex:"Sonkor ku dar shaaha.", en:"Sugar — a sweetener added to food and drinks."},
+  {term:"Maanta", tag:"Magac", def:"Maalinta hadda socota.", ex:"Maanta waa maalin fiican.", en:"Today — the current day."},
+  {term:"Berri", tag:"Magac", def:"Maalinta xigta maanta.", ex:"Berri waan safraynaa.", en:"Tomorrow — the day after today."},
+  {term:"Shalay", tag:"Magac", def:"Maalintii ka horreysay maanta.", ex:"Shalay waan booqday saaxiibkay.", en:"Yesterday — the day before today."},
+  {term:"Subax", tag:"Magac", def:"Waqtiga hore ee maalinta.", ex:"Subax wanaagsan.", en:"Morning — the early part of the day."},
+  {term:"Galab", tag:"Magac", def:"Waqtiga u dhexeeya duhurka iyo habeenka.", ex:"Galab wanaagsan.", en:"Afternoon — the time between noon and evening."},
+  {term:"Habeen", tag:"Magac", def:"Waqtiga qorraxdu dhacayso iyo iftiinku yaraado.", ex:"Habeen wanaagsan.", en:"Night — the time after sunset."},
+  {term:"Toddobaad", tag:"Magac", def:"Xilli ka kooban toddoba maalmood.", ex:"Toddobaadkan waan mashquul ahay.", en:"Week — a period of seven days."},
+  {term:"Sanad", tag:"Magac", def:"Xilli ka kooban laba iyo toban bilood.", ex:"Sanadkan waa mid barwaaqo leh.", en:"Year — a period of twelve months."},
+  {term:"Kow", tag:"Magac", def:"Tirada koowaad.", ex:"Kow, laba, saddex.", en:"One — the number 1."},
+  {term:"Laba", tag:"Magac", def:"Tirada labaad.", ex:"Waxaan haystaa laba buug.", en:"Two — the number 2."},
+  {term:"Saddex", tag:"Magac", def:"Tirada saddexaad.", ex:"Saddex qof ayaa yimid.", en:"Three — the number 3."},
+  {term:"Shan", tag:"Magac", def:"Tirada shanaad.", ex:"Shan minit sug.", en:"Five — the number 5."},
+  {term:"Toban", tag:"Magac", def:"Tirada tobnaad.", ex:"Toban qof ayaa fasalka joogay.", en:"Ten — the number 10."},
+  {term:"Magaalo", tag:"Magac", def:"Meel bulsho badani ku noolyihiin oo dhismayaal badan leh.", ex:"Magaaladu waa mashquul.", en:"City / town — a place with many buildings and a dense population."},
+  {term:"Tuulo", tag:"Magac", def:"Deegaan yar oo dad tiro yar ku noolyihiin.", ex:"Tuuladu waa deggan tahay.", en:"Village — a small settlement with fewer people."},
+  {term:"Dugsi", tag:"Magac", def:"Meesha waxbarashada lagu qaato.", ex:"Dugsiga tag.", en:"School — the place where education takes place."},
+  {term:"Suuq", tag:"Magac", def:"Meel alaab lagu iibiyo lagu iibsadana.", ex:"Suuqa tag si aad wax u iibsato.", en:"Market — a place for buying and selling goods."},
+  {term:"Masjid", tag:"Magac", def:"Meesha salaadda lagu tukado.", ex:"Masjidka aad ugu dhow guriga.", en:"Mosque — the place where prayers are performed."},
+  {term:"Isbitaal", tag:"Magac", def:"Meesha dadka bukaa lagu daaweeyo.", ex:"Isbitaalka la geeyay bukaanka.", en:"Hospital — the place where sick people are treated."},
+  {term:"Eey", tag:"Magac", def:"Xayawaan la dhaqdo oo caadi ahaan guryaha lagu ilaaliyo.", ex:"Eeygu wuu ciyay.", en:"Dog — a domesticated animal often kept for guarding."},
+  {term:"Bisad", tag:"Magac", def:"Xayawaan yar oo guryaha lagu dhaqdo.", ex:"Bisaddu waa mid xiiso badan.", en:"Cat — a small animal kept as a pet."},
+  {term:"Sac", tag:"Magac", def:"Xayawaan caano bixiya oo beeraha lagu dhaqo.", ex:"Sacu wuxuu bixiyaa caano badan.", en:"Cow — a farm animal that produces milk."},
+  {term:"Ari", tag:"Magac", def:"Xoolo yaryar oo hilib iyo caano bixiya.", ex:"Arigu waa xoolo faa'iido badan.", en:"Goat / sheep (livestock) — small livestock providing meat and milk."},
+  {term:"Shimbir", tag:"Magac", def:"Xayawaan duula oo baalal leh.", ex:"Shimbirtu way duushay.", en:"Bird — a flying animal with wings."},
+  {term:"Lacag", tag:"Magac", def:"Wax loo isticmaalo iibsiga iyo iibinta alaabta.", ex:"Lacagta i sii.", en:"Money — used for buying and selling."},
+  {term:"Waqti", tag:"Magac", def:"Xilliga ama saacadda arrin dhacayso.", ex:"Waqtigu wuu dhamaaday.", en:"Time — the duration in which events occur."},
+  {term:"Jid", tag:"Magac", def:"Meesha baabuurta iyo dadku ku socdaan.", ex:"Jidka la mari.", en:"Road — the path used for travel."},
+  {term:"Baabuur", tag:"Magac", def:"Gaari afar shaag leh oo dadka iyo alaabta wada.", ex:"Baabuurku wuu joogsaday.", en:"Car — a four-wheeled vehicle for transport."},
+  {term:"Diyaarad", tag:"Magac", def:"Gaari cirka ku duula oo dadka wada.", ex:"Diyaaraddu waxay ka duushay Muqdisho.", en:"Airplane — an aircraft that carries people."}
 ];
 
 /* A small, well-established set of traditional Somali proverbs.
@@ -445,10 +587,12 @@ const SEED_WORDS = [
    any single published collection. The app invites the community to
    add and verify more, with context on when they're used. */
 const SEED_PROVERBS = [
-  {so:"Aqoon la'aani waa iftiin la'aan.", en:"Ignorance is a lack of light.", note:"Waxay muujinaysaa qiimaha aqoonta iyo waxbarashada — aqoon la'aani waa sida mugdi.", noteEn:"Used to stress the value of education — without knowledge, a person is left in darkness."},
-  {so:"Hadal la ma dhalo, ee la baraa.", en:"Speech is not born, it is taught.", note:"Waxay tilmaamaysaa in hadalka fiican iyo edebtu ay tahay wax la baro, ee aan ku dhalan.", noteEn:"A reminder that good speech and manners are learned, not innate."},
-  {so:"Nin aan dhulkiisa jeclayn, dhul kale sow jeclaan?", en:"A man who does not love his own land — how could he love another's?", note:"Waxaa loo isticmaalaa marka la xusayo jacaylka dalka iyo guriga qof laga soo jeedo.", noteEn:"Spoken about the importance of loving and being loyal to one's homeland first."},
-  {so:"Nin walaal ah baa nin walaal ah gargaara.", en:"It is a brother who helps a brother.", note:"Waxay carrabka ku hayaan qiimaha wadajirka iyo taageerada qaraabada.", noteEn:"Used to encourage mutual support and solidarity among family and community."}
+  {cat:"maahmaah", so:"Aqoon la'aani waa iftiin la'aan.", en:"Ignorance is a lack of light.", note:"Waxay muujinaysaa qiimaha aqoonta iyo waxbarashada — aqoon la'aani waa sida mugdi.", noteEn:"Used to stress the value of education — without knowledge, a person is left in darkness."},
+  {cat:"maahmaah", so:"Hadal la ma dhalo, ee la baraa.", en:"Speech is not born, it is taught.", note:"Waxay tilmaamaysaa in hadalka fiican iyo edebtu ay tahay wax la baro, ee aan ku dhalan.", noteEn:"A reminder that good speech and manners are learned, not innate."},
+  {cat:"maahmaah", so:"Nin aan dhulkiisa jeclayn, dhul kale sow jeclaan?", en:"A man who does not love his own land — how could he love another's?", note:"Waxaa loo isticmaalaa marka la xusayo jacaylka dalka iyo guriga qof laga soo jeedo.", noteEn:"Spoken about the importance of loving and being loyal to one's homeland first."},
+  {cat:"maahmaah", so:"Nin walaal ah baa nin walaal ah gargaara.", en:"It is a brother who helps a brother.", note:"Waxay carrabka ku hayaan qiimaha wadajirka iyo taageerada qaraabada.", noteEn:"Used to encourage mutual support and solidarity among family and community."},
+  {cat:"dhaqan", so:"Meher — heshiiska guurka ee dhaqameed.", en:"Meher — the traditional marriage agreement.", note:"Meherku waa lacag ama hanti uu ninku ballanqaaday inuu siiyo naagtiisa marka la guursanayo, oo caadi ahaan waalidka labada dhinac ka wada hadlaan intii aan aroosku dhicin. Dhaqankan si tartiib ah ayuu isu beddelayaa magaalooyinka.", noteEn:"Meher is the payment a groom pledges to his bride at marriage, traditionally negotiated between both families before the wedding. This custom is slowly changing in urban areas."},
+  {cat:"dhaqan", so:"Xeedho — dabaaldegga aroosku ka mid yahay.", en:"Xeedho — a wedding ritual for the bride.", note:"Xeedho waa hido gaar ah oo haweenka reer Soomaaliyeed ay u sameeyaan aroosad ka hor guurkeeda, oo ay ku jiraan heeso, farxad, iyo shuqullo gacmeed dhaqameed ah. Dhaqankan waa mid magaalooyinka badankood laga waayay.", noteEn:"Xeedho is a pre-wedding ritual performed for the bride by women, involving songs, celebration, and traditional handicraft objects. This practice has become rare in many cities."}
 ];
 
 const LESSONS = [
@@ -492,10 +636,14 @@ const LESSONS = [
    publisher themselves. Linked as-is, never rehosted or rewritten,
    per the CC BY-NC-ND license terms. Source:
    https://arcadia.sba.uniroma3.it/handle/2307/2621 */
+/* Official per-letter files from RomaTrE-Press / Centro Studi Somali
+   (unmodified, verbatim). A complete self-hosted backup copy
+   (QAAMUUSKA_AF_SOOMAALIGA.pdf, in this same repo) covers users if
+   this external archive ever goes offline — see the note below the grid. */
 const LIB_BASE = "https://arcadia.sba.uniroma3.it/bitstream/2307/2621/";
 const LIBRARY_FILES = [
-  {n:"Gogoldhig", file:"20/Gogoldhig.pdf", label:"Hordhac"},
-  {n:"Naxwaha", file:"1/Naxwaha%20af-soomaaliga%20oo%20kooban.pdf", label:"Naxwaha"},
+  {n:"Gogoldhig", file:"20/Gogoldhig.pdf"},
+  {n:"Naxwaha", file:"1/Naxwaha%20af-soomaaliga%20oo%20kooban.pdf"},
   {n:"A", file:"19/A.pdf"}, {n:"B", file:"18/B.pdf"}, {n:"C", file:"17/C.pdf"},
   {n:"D", file:"16/D.pdf"}, {n:"E-F", file:"15/E-F.pdf"}, {n:"G", file:"14/G.pdf"},
   {n:"H", file:"13/H.pdf"}, {n:"I", file:"12/I.pdf"}, {n:"J", file:"11/J.pdf"},
@@ -664,17 +812,23 @@ function playAudio(dataUrl){ new Audio(dataUrl).play(); }
 function renderArchive(){
   const list = document.getElementById("archiveList");
   const proverbs = loadProverbs();
-  document.getElementById("archiveCount").textContent = proverbs.length + (isEN() ? " proverbs" : " maahmaah");
-  list.innerHTML = proverbs.map(p=>`
+  document.getElementById("archiveCount").textContent = proverbs.length + (isEN() ? " entries" : " qodob");
+  const catLabel = {maahmaah:{so:"Maahmaah",en:"Proverb"}, sheeko:{so:"Sheeko",en:"Story"}, dhaqan:{so:"Caado/Dhaqan",en:"Custom"}};
+  list.innerHTML = proverbs.map(p=>{
+    const c = catLabel[p.cat] || catLabel.maahmaah;
+    return `
     <div class="proverb">
       <span class="mark">"</span>
+      <div class="catTag">${isEN() ? c.en : c.so}</div>
       <div class="so">${p.so}</div>
       <div class="en">${p.en}</div>
       ${(p.note || p.noteEn) ? `<div class="note">${isEN() ? (p.noteEn||p.note) : p.note}</div>` : ""}
-    </div>`).join("");
+    </div>`;
+  }).join("");
 }
 const proverbOverlay = document.getElementById("proverbOverlay");
 document.getElementById("addProverbFab").addEventListener("click", ()=>{
+  document.getElementById("p-cat").value="maahmaah";
   document.getElementById("p-so").value="";
   document.getElementById("p-en").value="";
   document.getElementById("p-note").value="";
@@ -683,8 +837,8 @@ document.getElementById("addProverbFab").addEventListener("click", ()=>{
 document.getElementById("proverbCancel").addEventListener("click", ()=> proverbOverlay.classList.remove("show"));
 document.getElementById("proverbSave").addEventListener("click", ()=>{
   const so = document.getElementById("p-so").value.trim();
-  if(!so){ alert(isEN() ? "Please write the proverb." : "Fadlan qor maahmaahda."); return; }
-  saveCustomProverb({so, en:document.getElementById("p-en").value.trim(), note:document.getElementById("p-note").value.trim()});
+  if(!so){ alert(isEN() ? "Please write the entry." : "Fadlan qor qodobka."); return; }
+  saveCustomProverb({cat:document.getElementById("p-cat").value, so, en:document.getElementById("p-en").value.trim(), note:document.getElementById("p-note").value.trim()});
   proverbOverlay.classList.remove("show");
   renderArchive();
 });
