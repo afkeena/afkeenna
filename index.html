@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="so">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Afkeenna — Ilaali Afka Soomaaliga</title>
+<meta name="theme-color" content="#1B2540">
+<link rel="manifest" href="manifest.json">
+<meta name="description" content="Afkeenna — barasho, qaamuus, iyo kaydka dhaqanka afka Soomaaliga.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#24211D;
+  --night:#1B2540;
+  --night-2:#26335A;
+  --sand:#F1E6D2;
+  --sand-2:#E8D8B8;
+  --paper:#FBF7EE;
+  --henna:#C1622D;
+  --henna-dk:#9C4B21;
+  --gold:#D9A441;
+  --teal:#2F5D50;
+  --teal-dk:#234439;
+  --line:rgba(36,33,29,0.12);
+  --shadow: 0 8px 24px rgba(27,37,64,0.14);
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:'Work Sans',sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+  min-height:100vh;
+  padding-bottom:78px;
+}
+h1,h2,h3,.display{
+  font-family:'Fraunces',serif;
+  font-weight:600;
+  letter-spacing:-0.01em;
+}
+button{font-family:inherit;}
+a{color:inherit;}
+
+/* ---------- weave pattern (signature motif) ---------- */
+.weave{
+  height:14px;
+  width:100%;
+  background-image: repeating-linear-gradient(135deg, var(--gold) 0 6px, transparent 6px 12px),
+                     repeating-linear-gradient(45deg, var(--henna) 0 6px, transparent 6px 12px);
+  background-size: 24px 14px, 24px 14px;
+  background-position: 0 0, 0 0;
+  opacity:0.9;
+}
+.weave.sub{height:8px; opacity:0.55;}
+
+/* ---------- header ---------- */
+header.top{
+  background: linear-gradient(160deg, var(--night) 0%, var(--night-2) 70%);
+  color:var(--sand);
+  padding:22px 20px 26px;
+  position:relative;
+  overflow:hidden;
+}
+header.top::after{
+  content:"";
+  position:absolute; right:-40px; top:-40px;
+  width:180px; height:180px; border-radius:50%;
+  background:radial-gradient(circle, rgba(217,164,65,0.25), transparent 70%);
+}
+.brandrow{display:flex; align-items:center; justify-content:space-between; position:relative; z-index:2;}
+.brand{display:flex; align-items:center; gap:10px;}
+.brandmark{
+  width:38px;height:38px;border-radius:10px;
+  background:linear-gradient(135deg,var(--henna),var(--gold));
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Fraunces',serif; font-weight:700; color:var(--night); font-size:19px;
+}
+.brand h1{font-size:21px; margin:0; color:#fff;}
+.brand .sub{font-size:11px; opacity:0.7; margin-top:-2px; letter-spacing:0.02em;}
+.langtoggle{
+  background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.25);
+  color:#fff; border-radius:20px; padding:6px 12px; font-size:12px; font-weight:600;
+  cursor:pointer;
+}
+.hero{position:relative; z-index:2; margin-top:20px;}
+.hero .eyebrow{font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--gold); font-weight:600;}
+.wordcard{
+  margin-top:10px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.18);
+  border-radius:16px; padding:16px 18px; backdrop-filter:blur(2px);
+}
+.wordcard .word{font-family:'Fraunces',serif; font-size:30px; color:#fff; font-weight:700;}
+.wordcard .pos{font-size:11px; color:var(--gold); text-transform:uppercase; letter-spacing:0.08em; margin-left:8px; font-weight:600;}
+.wordcard .def{font-size:14.5px; color:var(--sand); opacity:0.92; margin-top:6px; line-height:1.5;}
+.wordcard .ex{font-size:13px; font-style:italic; color:var(--sand); opacity:0.68; margin-top:8px;}
+
+/* ---------- main sections ---------- */
+main{padding:18px 16px 8px; max-width:640px; margin:0 auto;}
+.section{display:none;}
+.section.active{display:block; animation:fade .25s ease;}
+@keyframes fade{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
+
+.sectiontitle{display:flex; align-items:baseline; justify-content:space-between; margin:6px 0 14px;}
+.sectiontitle h2{font-size:22px; margin:0;}
+.sectiontitle .count{font-size:12px; color:var(--ink); opacity:0.5;}
+
+.searchbar{
+  display:flex; align-items:center; gap:8px;
+  background:#fff; border:1.5px solid var(--line); border-radius:14px; padding:11px 14px;
+  margin-bottom:16px;
+}
+.searchbar input{
+  border:none; outline:none; flex:1; font-size:15px; font-family:'Work Sans',sans-serif; background:transparent;
+}
+.searchbar svg{flex-shrink:0; opacity:0.45;}
+
+.wordlist{display:flex; flex-direction:column; gap:10px;}
+.entry{
+  background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px;
+  box-shadow:0 1px 0 rgba(36,33,29,0.03);
+}
+.entry .head{display:flex; align-items:center; gap:8px; flex-wrap:wrap;}
+.entry .term{font-family:'Fraunces',serif; font-weight:700; font-size:18px; color:var(--night);}
+.entry .tag{
+  font-size:10.5px; text-transform:uppercase; letter-spacing:0.06em; font-weight:700;
+  color:var(--henna-dk); background:rgba(193,98,45,0.1); padding:2px 8px; border-radius:20px;
+}
+.entry .playbtn{
+  margin-left:auto; width:30px; height:30px; border-radius:50%; border:1.5px solid var(--line);
+  background:var(--sand); display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0;
+}
+.entry .def{font-size:14px; margin-top:6px; line-height:1.5; color:var(--ink); opacity:0.88;}
+.entry .ex{font-size:12.5px; margin-top:6px; color:var(--teal-dk); font-style:italic;}
+.entry .meta{font-size:11px; margin-top:8px; color:var(--ink); opacity:0.42;}
+
+.empty{
+  text-align:center; padding:34px 20px; color:var(--ink); opacity:0.55; font-size:14px;
+}
+
+.fab{
+  position:fixed; right:18px; bottom:92px; z-index:30;
+  background:var(--henna); color:#fff; border:none; border-radius:50%;
+  width:54px; height:54px; box-shadow:var(--shadow); font-size:26px; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+}
+
+/* ---------- lessons ---------- */
+.lessongrid{display:flex; flex-direction:column; gap:12px;}
+.lesson{
+  background:#fff; border:1px solid var(--line); border-radius:16px; padding:16px; cursor:pointer;
+  display:flex; align-items:center; gap:14px;
+}
+.lesson .num{
+  font-family:'Fraunces',serif; font-weight:700; font-size:15px; color:#fff;
+  background:var(--teal); width:38px; height:38px; border-radius:10px;
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+}
+.lesson .info h3{margin:0; font-size:16px;}
+.lesson .info p{margin:3px 0 0; font-size:12.5px; opacity:0.6;}
+.lesson .prog{margin-left:auto; font-size:11px; color:var(--teal-dk); font-weight:700; flex-shrink:0;}
+
+.card-inner{background:#fff; border:1px solid var(--line); border-radius:16px; padding:20px; margin-bottom:14px;}
+.flash{
+  background:var(--night); color:#fff; border-radius:16px; padding:34px 20px; text-align:center; margin-bottom:16px;
+  min-height:120px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; cursor:pointer;
+}
+.flash .f-word{font-family:'Fraunces',serif; font-size:28px; font-weight:700;}
+.flash .f-hint{font-size:11px; opacity:0.5; text-transform:uppercase; letter-spacing:0.08em;}
+.flash .f-back{font-size:16px; color:var(--gold); display:none;}
+.flashnav{display:flex; gap:10px;}
+.flashnav button{
+  flex:1; padding:12px; border-radius:12px; border:1.5px solid var(--line); background:#fff;
+  font-weight:600; font-size:14px; cursor:pointer;
+}
+.flashnav button.primary{background:var(--teal); color:#fff; border-color:var(--teal);}
+
+.quizq{font-size:16px; font-weight:600; margin-bottom:14px;}
+.quizopt{
+  display:block; width:100%; text-align:left; padding:13px 14px; margin-bottom:8px;
+  border-radius:12px; border:1.5px solid var(--line); background:#fff; font-size:14.5px; cursor:pointer;
+}
+.quizopt.correct{border-color:var(--teal); background:rgba(47,93,80,0.08);}
+.quizopt.wrong{border-color:var(--henna); background:rgba(193,98,45,0.08);}
+
+/* ---------- archive ---------- */
+.proverb{
+  background:linear-gradient(160deg,#fff,var(--sand)); border:1px solid var(--line); border-radius:16px;
+  padding:18px; margin-bottom:12px; position:relative;
+}
+.proverb .mark{position:absolute; top:10px; right:14px; font-family:'Fraunces',serif; font-size:34px; color:var(--gold); opacity:0.5;}
+.proverb .so{font-family:'Fraunces',serif; font-size:18px; font-weight:600; color:var(--night); line-height:1.4; padding-right:30px;}
+.proverb .en{font-size:13px; margin-top:8px; opacity:0.7; font-style:italic;}
+.proverb .note{font-size:12.5px; margin-top:8px; color:var(--teal-dk); border-top:1px dashed var(--line); padding-top:8px;}
+
+/* ---------- library ---------- */
+.credit-block{
+  background:var(--sand); border:1px solid var(--line); border-radius:14px; padding:14px 16px; margin-bottom:16px;
+}
+.credit-block p{font-size:13px; line-height:1.6; margin:0; opacity:0.85;}
+.credit-block.small{background:transparent; border:1px dashed var(--line); font-size:12px; opacity:0.75; padding:12px 14px;}
+.credit-block.small a{color:var(--henna-dk); font-weight:700; text-decoration:underline;}
+.letterGrid{display:grid; grid-template-columns:repeat(5, 1fr); gap:8px; margin-bottom:16px;}
+.letterCard{
+  background:#fff; border:1px solid var(--line); border-radius:12px; padding:14px 4px; text-align:center;
+  font-family:'Fraunces',serif; font-weight:700; font-size:16px; color:var(--night); cursor:pointer; text-decoration:none; display:block;
+}
+.letterCard:active{background:var(--sand);}
+
+/* ---------- tabbar ---------- */
+nav.tabbar{
+  position:fixed; bottom:0; left:0; right:0; background:#fff; border-top:1px solid var(--line);
+  display:flex; z-index:40; padding-bottom:env(safe-area-inset-bottom);
+}
+nav.tabbar button{
+  flex:1; border:none; background:transparent; padding:10px 4px 8px; cursor:pointer;
+  display:flex; flex-direction:column; align-items:center; gap:3px; color:var(--ink); opacity:0.45;
+}
+nav.tabbar button.active{opacity:1; color:var(--henna);}
+nav.tabbar button svg{width:21px; height:21px;}
+nav.tabbar button span{font-size:10.5px; font-weight:600;}
+
+/* ---------- modal ---------- */
+.overlay{
+  position:fixed; inset:0; background:rgba(27,20,10,0.5); z-index:50; display:none;
+  align-items:flex-end; justify-content:center;
+}
+.overlay.show{display:flex;}
+.modal{
+  background:#FBF7EE; width:100%; max-width:640px; border-radius:20px 20px 0 0; padding:22px 20px 28px;
+  max-height:86vh; overflow-y:auto;
+}
+.modal h3{margin:0 0 14px;}
+.field{margin-bottom:14px;}
+.field label{display:block; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; opacity:0.6; margin-bottom:5px;}
+.field input, .field select, .field textarea{
+  width:100%; border:1.5px solid var(--line); border-radius:10px; padding:11px 12px; font-size:14.5px; font-family:inherit;
+}
+.field textarea{resize:vertical; min-height:70px;}
+.modalbtns{display:flex; gap:10px; margin-top:6px;}
+.modalbtns button{flex:1; padding:13px; border-radius:12px; font-weight:700; font-size:14.5px; border:none; cursor:pointer;}
+.btncancel{background:#fff; border:1.5px solid var(--line) !important; color:var(--ink);}
+.btnsave{background:var(--henna); color:#fff;}
+.recbtn{
+  width:100%; padding:12px; border-radius:12px; border:1.5px dashed var(--teal); background:rgba(47,93,80,0.06);
+  color:var(--teal-dk); font-weight:600; cursor:pointer; font-size:13.5px;
+}
+.recbtn.recording{background:rgba(193,98,45,0.1); border-color:var(--henna); color:var(--henna-dk);}
+
+.hide{display:none !important;}
+[data-en]{display:none;}
+body.lang-en [data-en]{display:inline;}
+body.lang-en [data-so]{display:none;}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="brandrow">
+    <div class="brand">
+      <div class="brandmark">A</div>
+      <div>
+        <h1>Afkeenna</h1>
+        <div class="sub" data-so>Ilaali afka, ilaali dhaqanka</div>
+        <div class="sub" data-en>Preserve the language, preserve the culture</div>
+      </div>
+    </div>
+    <button class="langtoggle" id="langBtn">EN</button>
+  </div>
+  <div class="hero">
+    <div class="eyebrow" data-so>Erayga Maanta</div>
+    <div class="eyebrow" data-en>Word of the Day</div>
+    <div class="wordcard" id="wordOfDay"></div>
+  </div>
+</header>
+<div class="weave"></div>
+
+<main>
+  <!-- DICTIONARY -->
+  <section class="section active" id="sec-dict">
+    <div class="sectiontitle">
+      <h2 data-so>Qaamuuska</h2><h2 data-en>Dictionary</h2>
+      <span class="count" id="dictCount"></span>
+    </div>
+    <div class="searchbar">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="dictSearch" data-placeholder-so="Raadi eray..." data-placeholder-en="Search a word..." placeholder="Raadi eray...">
+    </div>
+    <div class="wordlist" id="dictList"></div>
+    <button class="fab" id="addWordFab" title="Ku dar eray">+</button>
+  </section>
+
+  <!-- LESSONS -->
+  <section class="section" id="sec-lessons">
+    <div id="lessonHome">
+      <div class="sectiontitle">
+        <h2 data-so>Casharo</h2><h2 data-en>Lessons</h2>
+        <span class="count" id="lessonCount"></span>
+      </div>
+      <div class="lessongrid" id="lessonList"></div>
+    </div>
+    <div id="lessonRunner" class="hide"></div>
+  </section>
+
+  <!-- ARCHIVE -->
+  <section class="section" id="sec-archive">
+    <div class="sectiontitle">
+      <h2 data-so>Kaydka Dhaqanka</h2><h2 data-en>Heritage Archive</h2>
+      <span class="count" id="archiveCount"></span>
+    </div>
+    <div id="archiveList"></div>
+    <button class="fab" id="addProverbFab" title="Ku dar maahmaah">+</button>
+  </section>
+
+  <!-- LIBRARY -->
+  <section class="section" id="sec-library">
+    <div class="sectiontitle">
+      <h2 data-so>Maktabadda Rasmiga ah</h2><h2 data-en>Official Reference Library</h2>
+    </div>
+    <div class="credit-block">
+      <p data-so>Qaamuuska buuxa ee <strong>Qaamuuska Af-Soomaaliga</strong> (2012), oo ay diyaariyeen <strong>Annarita Puglielli</strong> iyo <strong>Cabdalla Cumar Mansuur</strong>, waxaana daabacay <strong>RomaTrE-Press / Centro Studi Somali, Università degli Studi Roma Tre</strong>. Waxaa la heli karaa si bilaash ah oo shati <strong>CC BY-NC-ND</strong> ah, si buuggu isaga u sii jiro isaga oo aan la beddelin. Halkan ku taabo xaraf si aad u furto faylka rasmiga ah.</p>
+      <p data-en>The complete <strong>Qaamuuska Af-Soomaaliga</strong> (2012), prepared by <strong>Annarita Puglielli</strong> and <strong>Cabdalla Cumar Mansuur</strong>, published by <strong>RomaTrE-Press / Centro Studi Somali, Università degli Studi Roma Tre</strong>. Shared under a <strong>CC BY-NC-ND</strong> license — kept exactly as published. Tap a letter below to open the official file.</p>
+    </div>
+    <div class="letterGrid" id="letterGrid"></div>
+    <div class="credit-block small">
+      <span data-so>Waxaad kaloo heli kartaa qaamuuskii ugu horreeyay, mid uu diyaariyay </span><span data-en>Also available: the first-ever monolingual Somali dictionary, prepared by </span>
+      <strong>Yaasiin C. Keenadiid</strong> (1976) —
+      <a href="https://arcadia.sba.uniroma3.it/bitstream/2307/2021/1/Dizionario%20Yaasiin%20C.%20Keenadiid.pdf" target="_blank" rel="noopener">
+        <span data-so>fur PDF-ka</span><span data-en>open PDF</span>
+      </a>.
+    </div>
+  </section>
+</main>
+
+<nav class="tabbar">
+  <button class="tab active" data-tab="sec-dict">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+    <span data-so>Qaamuus</span><span data-en>Dictionary</span>
+  </button>
+  <button class="tab" data-tab="sec-lessons">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M3 8l9-5 9 5-9 5-9-5z"/><path d="M3 8v8l9 5 9-5V8"/></svg>
+    <span data-so>Casharo</span><span data-en>Lessons</span>
+  </button>
+  <button class="tab" data-tab="sec-archive">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v5"/></svg>
+    <span data-so>Kaydka</span><span data-en>Archive</span>
+  </button>
+  <button class="tab" data-tab="sec-library">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><path d="M9 7h6M9 11h6"/></svg>
+    <span data-so>Maktabadda</span><span data-en>Library</span>
+  </button>
+</nav>
+
+<!-- Add word modal -->
+<div class="overlay" id="wordOverlay">
+  <div class="modal">
+    <h3 data-so>Ku dar eray cusub</h3><h3 data-en>Add a new word</h3>
+    <div class="field">
+      <label data-so>Erayga</label><label data-en>Word</label>
+      <input id="f-term" placeholder="tusaale: barwaaqo">
+    </div>
+    <div class="field">
+      <label data-so>Nooca hadalka</label><label data-en>Word class</label>
+      <select id="f-tag">
+        <option>Magac</option><option>Falcelin</option><option>Tilmaame</option><option>Xiriiriye</option><option>Kale</option>
+      </select>
+    </div>
+    <div class="field">
+      <label data-so>Micnaha</label><label data-en>Definition</label>
+      <textarea id="f-def" placeholder="Ku sharax erayga af Soomaali ah..."></textarea>
+    </div>
+    <div class="field">
+      <label data-so>Tusaale (jumlad)</label><label data-en>Example sentence</label>
+      <input id="f-ex" placeholder="tusaale: Dalkeenu wuxuu leeyahay barwaaqo weyn.">
+    </div>
+    <div class="field">
+      <button class="recbtn" id="f-rec"><span data-so>🎙 Duub codka erayga</span><span data-en>🎙 Record pronunciation</span></button>
+    </div>
+    <div class="modalbtns">
+      <button class="btncancel" id="wordCancel" data-so="Jooji" data-en="Cancel">Jooji</button>
+      <button class="btnsave" id="wordSave" data-so="Kaydi" data-en="Save">Kaydi</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add proverb modal -->
+<div class="overlay" id="proverbOverlay">
+  <div class="modal">
+    <h3 data-so>Ku dar maahmaah</h3><h3 data-en>Add a proverb</h3>
+    <div class="field">
+      <label data-so>Maahmaahda (Af Soomaali)</label><label data-en>Proverb (Somali)</label>
+      <textarea id="p-so" placeholder="Qor maahmaahda halka..."></textarea>
+    </div>
+    <div class="field">
+      <label data-so>Turjumaad (Ingiriisi)</label><label data-en>Translation (English)</label>
+      <textarea id="p-en"></textarea>
+    </div>
+    <div class="field">
+      <label data-so>Halka lagu isticmaalo / macnaha</label><label data-en>When it's used / meaning</label>
+      <textarea id="p-note"></textarea>
+    </div>
+    <div class="modalbtns">
+      <button class="btncancel" id="proverbCancel" data-so="Jooji" data-en="Cancel">Jooji</button>
+      <button class="btnsave" id="proverbSave" data-so="Kaydi" data-en="Save">Kaydi</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ======================= SEED DATA ======================= */
+/* Dictionary entries below are written as original, plain-language
+   definitions for a beginner-facing community dictionary — not copied
+   from any published dictionary. The app is designed for the community
+   to expand this list themselves. */
+const SEED_WORDS = [
+  {term:"Salaan", tag:"Magac", def:"Erayga ama dhaqanka lagu bilaabo kulan ama wada hadal, si loo muujiyo ixtiraam.", ex:"Salaan wanaagsan ayaa lagu bilaabaa kulan kasta.", en:"A greeting — the word or gesture used to open a meeting or conversation respectfully."},
+  {term:"Barwaaqo", tag:"Magac", def:"Nolol wax-ku-filnaan iyo horumar leh, gaar ahaan xagga dhaqaalaha iyo cimilada.", ex:"Dalkeenu wuxuu leeyahay barwaaqo weyn marka roobku da'o.", en:"Prosperity or abundance — a life of sufficiency and growth, especially tied to good rains and a thriving economy."},
+  {term:"Xaqiiqo", tag:"Magac", def:"Wax runta ah oo aan lagu shakiyin.", ex:"Waa xaqiiqo in cilmigu horumarinayo bulshada.", en:"Truth or fact — something certain and undoubted."},
+  {term:"Dhaqan", tag:"Magac", def:"Caadooyinka, fikradaha, iyo hab-nololeedka ay bulsho wadaagto oo laga dhaxlo qarni ka qarni.", ex:"Dhaqankeenu wuxuu ku dhisan yahay martisooranka iyo tolnimada.", en:"Culture — the customs, values and way of life shared by a community and passed between generations."},
+  {term:"Aqoon", tag:"Magac", def:"Waxbarasho iyo fahamka la helo iyada oo la barto ama laga waayo-aragnimo helo.", ex:"Aqoon la'aani waa iftiin la'aan.", en:"Knowledge — understanding gained through learning or experience."},
+  {term:"Guri", tag:"Magac", def:"Meesha qof ama qoys ku noolyahay.", ex:"Gurigayagu wuxuu ku yaal magaalada.", en:"House / home — the place where a person or family lives."},
+  {term:"Roob", tag:"Magac", def:"Biyaha cirka ka soo da'a, kuwaas oo muhiim u ah beeraha iyo xoolaha.", ex:"Roobku wuu da'ayaa, dhulkuna wuu cagaarmayaa.", en:"Rain — water falling from the sky, vital for crops and livestock."},
+  {term:"Geel", tag:"Magac", def:"Xoolo la yaqaan inay adkaystaan cimilada qallalan, oo muhiim u ah dhaqanka reer-guuraaga.", ex:"Geeluhu waxay ku noolyihiin dhul qallalan.", en:"Camels — livestock known for enduring dry climates, central to pastoral Somali life."},
+  {term:"Sharaf", tag:"Magac", def:"Qiimo iyo ixtiraam qof ku leeyahay bulshada dhexdeeda, sababtoo ah dabeecaddiisa ama falkiisa.", ex:"Sharafta qofku waa mid la ilaaliyo.", en:"Honor / dignity — the respect a person holds in their community, earned through character or conduct."},
+  {term:"Wadajir", tag:"Magac", def:"La-shaqeyn iyo iskaashi ay dad ku qabtaan hawl guud.", ex:"Wadajirka ayaa horumar keena.", en:"Unity / working together — cooperation among people toward a shared goal."},
+  {term:"Fahmid", tag:"Falcelin", def:"In qof garto ama uu ogaado macnaha wax la sheegay.", ex:"Ma fahantay su'aasha?", en:"To understand — to grasp the meaning of something."},
+  {term:"Baro", tag:"Falcelin", def:"In qof shaqo, aqoon, ama xirfad kasbado.", ex:"Waan barayaa afka Soomaaliga.", en:"To learn — to acquire skill or knowledge."},
+  {term:"Ilaali", tag:"Falcelin", def:"In wax la difaaco ama la xannaaneeyo si aanay u lumin.", ex:"Ilaali afkaaga hooyo.", en:"To protect / preserve — to guard something so it isn't lost."},
+  {term:"Dhis", tag:"Falcelin", def:"In wax cusub la sameeyo, sida guri ama fikrad.", ex:"Waxaan dhisaynaa mustaqbal wanaagsan.", en:"To build — to construct something new, whether physical or an idea."},
+  {term:"Weyddii", tag:"Falcelin", def:"In su'aal la waydiiyo si loo helo macluumaad.", ex:"Wax kasta oo aad garan weyday, weyddii.", en:"To ask — to pose a question to get information."},
+  {term:"Wanaagsan", tag:"Tilmaame", def:"Mid tayo sarreysa leh ama fiican.", ex:"Waa cashar wanaagsan.", en:"Good / fine — of high quality or positive character."},
+  {term:"Weyn", tag:"Tilmaame", def:"Mid baaxad ama cabbir weyn leh.", ex:"Waa dhismo weyn.", en:"Big / great — large in size or importance."},
+  {term:"Xoog", tag:"Tilmaame", def:"Mid awood jireed ama maskaxeed leh oo sarreeya.", ex:"Waa nin xoog badan.", en:"Strong — possessing physical or mental power."},
+  {term:"Yar", tag:"Tilmaame", def:"Mid cabbir ama tiro yar leh.", ex:"Waxaan haystaa lacag yar.", en:"Small / little — of limited size or amount."},
+  {term:"Dhow", tag:"Tilmaame", def:"Mid meel u dhow, aan fog ahayn.", ex:"Dukaanku waa dhow.", en:"Near / close — not far away."},
+  {term:"Hooyo", tag:"Magac", def:"Haweenayda dhashay ama korisay ilmo.", ex:"Hooyaday waa naag xikmad badan.", en:"Mother — the woman who bore or raised a child."},
+  {term:"Aabbe", tag:"Magac", def:"Ninka dhalay ama korinaya ilmo.", ex:"Aabbahay wuxuu ii sheegay taariikhda qabiilka.", en:"Father — the man who fathered or raises a child."},
+  {term:"Walaal", tag:"Magac", def:"Qof isku hooyo ama isku aabbe ah, ama sax-sax loola dhaqmo sida qaraabo.", ex:"Waan la hadlay walaalkay.", en:"Sibling — a brother or sister; also used warmly for a close friend."},
+  {term:"Saaxiib", tag:"Magac", def:"Qof aad jeceshahay oo aad wax badan la wadaagto, laakiin aan qaraabo ahayn.", ex:"Waa saaxiibkay ugu fiican.", en:"Friend — someone close and trusted, not a relative."},
+  {term:"Nabad", tag:"Magac", def:"Xaalad aan colaad ku jirin, deggenaan iyo amni.", ex:"Waxaan rajeynaynaa nabad joogto ah.", en:"Peace — a state free of conflict, calm and security."},
+  {term:"Hodan", tag:"Tilmaame", def:"Mid hanti badan leh, ama nolosha wax-ku-filan.", ex:"Waa qoys hodan ah.", en:"Wealthy / prosperous — possessing abundance or resources."}
+];
+
+/* A small, well-established set of traditional Somali proverbs.
+   These are part of oral folk tradition (maahmaah), not sourced from
+   any single published collection. The app invites the community to
+   add and verify more, with context on when they're used. */
+const SEED_PROVERBS = [
+  {so:"Aqoon la'aani waa iftiin la'aan.", en:"Ignorance is a lack of light.", note:"Waxay muujinaysaa qiimaha aqoonta iyo waxbarashada — aqoon la'aani waa sida mugdi.", noteEn:"Used to stress the value of education — without knowledge, a person is left in darkness."},
+  {so:"Hadal la ma dhalo, ee la baraa.", en:"Speech is not born, it is taught.", note:"Waxay tilmaamaysaa in hadalka fiican iyo edebtu ay tahay wax la baro, ee aan ku dhalan.", noteEn:"A reminder that good speech and manners are learned, not innate."},
+  {so:"Nin aan dhulkiisa jeclayn, dhul kale sow jeclaan?", en:"A man who does not love his own land — how could he love another's?", note:"Waxaa loo isticmaalaa marka la xusayo jacaylka dalka iyo guriga qof laga soo jeedo.", noteEn:"Spoken about the importance of loving and being loyal to one's homeland first."},
+  {so:"Nin walaal ah baa nin walaal ah gargaara.", en:"It is a brother who helps a brother.", note:"Waxay carrabka ku hayaan qiimaha wadajirka iyo taageerada qaraabada.", noteEn:"Used to encourage mutual support and solidarity among family and community."}
+];
+
+const LESSONS = [
+  {
+    id:"alphabet", num:"1", title:"Xarfaha Soomaaliga", titleEn:"The Somali Alphabet", desc:"22 shaqal iyo shibbane", descEn:"22 core letters & sounds",
+    cards:[
+      {word:"A", back:"sida 'a' ee 'cat'"},{word:"B", back:"sida 'b' ee 'ball'"},{word:"T", back:"sida 't' ee 'top'"},
+      {word:"J", back:"sida 'j' ee 'jam'"},{word:"X", back:"cod xanjo ah, cirridka ka soo baxa"},{word:"KH", back:"cod gudaha xoogga leh, sida Carabida 'خ'"}
+    ],
+    quiz:[{q:"Xarafka 'X' cod ma leeyahay sida?", opts:["'h' ee 'hat'","cod xanjo/gudaha xoogga leh","'x' ee English 'box'"], correct:1}]
+  },
+  {
+    id:"greetings", num:"2", title:"Salaanta", titleEn:"Greetings", desc:"Sida loo salaamo", descEn:"How to greet someone",
+    cards:[
+      {word:"Salaan", back:"Greeting"},{word:"Iska warran?", back:"How are you? (informal)"},
+      {word:"Waan fiicanahay", back:"I'm fine"},{word:"Nabadgelyo", back:"Goodbye / farewell"},{word:"Mahadsanid", back:"Thank you"}
+    ],
+    quiz:[{q:"\"Mahadsanid\" waxay ka dhigan tahay:", opts:["Goodbye","Thank you","How are you?"], correct:1}]
+  },
+  {
+    id:"numbers", num:"3", title:"Tirooyinka", titleEn:"Numbers 1–10", desc:"Koob ilaa toban", descEn:"One to ten",
+    cards:[
+      {word:"Kow", back:"1"},{word:"Laba", back:"2"},{word:"Saddex", back:"3"},{word:"Afar", back:"4"},{word:"Shan", back:"5"},
+      {word:"Lix", back:"6"},{word:"Toddoba", back:"7"},{word:"Siddeed", back:"8"},{word:"Sagaal", back:"9"},{word:"Toban", back:"10"}
+    ],
+    quiz:[{q:"Tirada 'Shan' waa immisa?", opts:["4","5","6"], correct:1}]
+  },
+  {
+    id:"family", num:"4", title:"Qoyska", titleEn:"Family Words", desc:"Ereyada qoyska", descEn:"Vocabulary for family",
+    cards:[
+      {word:"Hooyo", back:"Mother"},{word:"Aabbe", back:"Father"},{word:"Walaal", back:"Sibling"},
+      {word:"Awoowe", back:"Grandfather"},{word:"Ayeeyo", back:"Grandmother"},{word:"Ina-adeer", back:"Cousin"}
+    ],
+    quiz:[{q:"\"Ayeeyo\" waxay tahay:", opts:["Grandmother","Aunt","Sister"], correct:0}]
+  }
+];
+
+/* ======================= REFERENCE LIBRARY ======================= */
+/* Official, unmodified files published by RomaTrE-Press / Centro Studi
+   Somali (Università degli Studi Roma Tre), split by letter by the
+   publisher themselves. Linked as-is, never rehosted or rewritten,
+   per the CC BY-NC-ND license terms. Source:
+   https://arcadia.sba.uniroma3.it/handle/2307/2621 */
+const LIB_BASE = "https://arcadia.sba.uniroma3.it/bitstream/2307/2621/";
+const LIBRARY_FILES = [
+  {n:"Gogoldhig", file:"20/Gogoldhig.pdf", label:"Hordhac"},
+  {n:"Naxwaha", file:"1/Naxwaha%20af-soomaaliga%20oo%20kooban.pdf", label:"Naxwaha"},
+  {n:"A", file:"19/A.pdf"}, {n:"B", file:"18/B.pdf"}, {n:"C", file:"17/C.pdf"},
+  {n:"D", file:"16/D.pdf"}, {n:"E-F", file:"15/E-F.pdf"}, {n:"G", file:"14/G.pdf"},
+  {n:"H", file:"13/H.pdf"}, {n:"I", file:"12/I.pdf"}, {n:"J", file:"11/J.pdf"},
+  {n:"K", file:"10/K.pdf"}, {n:"L", file:"9/L.pdf"}, {n:"M", file:"8/M.pdf"},
+  {n:"N-O", file:"7/N-O.pdf"}, {n:"Q", file:"6/Q.pdf"}, {n:"R", file:"5/R.pdf"},
+  {n:"S", file:"4/S.pdf"}, {n:"T-U-W", file:"3/T-U-W.pdf"}, {n:"X-Y", file:"2/X-Y.pdf"}
+];
+function renderLibrary(){
+  const grid = document.getElementById("letterGrid");
+  grid.innerHTML = LIBRARY_FILES.map(f => `
+    <a class="letterCard" href="${LIB_BASE}${f.file}" target="_blank" rel="noopener">${f.n}</a>
+  `).join("");
+}
+
+/* ======================= STORAGE ======================= */
+const LS = {
+  words: "afk_words", proverbs:"afk_proverbs", lang:"afk_lang", progress:"afk_progress"
+};
+function loadWords(){
+  const custom = JSON.parse(localStorage.getItem(LS.words) || "[]");
+  return SEED_WORDS.concat(custom);
+}
+function saveCustomWord(w){
+  const custom = JSON.parse(localStorage.getItem(LS.words) || "[]");
+  custom.push(w);
+  localStorage.setItem(LS.words, JSON.stringify(custom));
+}
+function loadProverbs(){
+  const custom = JSON.parse(localStorage.getItem(LS.proverbs) || "[]");
+  return SEED_PROVERBS.concat(custom);
+}
+function saveCustomProverb(p){
+  const custom = JSON.parse(localStorage.getItem(LS.proverbs) || "[]");
+  custom.push(p);
+  localStorage.setItem(LS.proverbs, JSON.stringify(custom));
+}
+function getProgress(){ return JSON.parse(localStorage.getItem(LS.progress) || "{}"); }
+function setLessonDone(id){
+  const p = getProgress(); p[id] = true; localStorage.setItem(LS.progress, JSON.stringify(p));
+}
+
+/* ======================= LANG ======================= */
+function isEN(){ return document.body.classList.contains("lang-en"); }
+function applyLangAttrs(){
+  document.querySelectorAll("[data-so][data-en]").forEach(el=>{
+    if(el.tagName==="BUTTON" || el.tagName==="LABEL"){
+      el.textContent = isEN() ? el.getAttribute("data-en") : el.getAttribute("data-so");
+    }
+  });
+  const search = document.getElementById("dictSearch");
+  search.placeholder = isEN() ? search.getAttribute("data-placeholder-en") : search.getAttribute("data-placeholder-so");
+}
+document.getElementById("langBtn").addEventListener("click", ()=>{
+  document.body.classList.toggle("lang-en");
+  const en = isEN();
+  localStorage.setItem(LS.lang, en ? "en" : "so");
+  document.getElementById("langBtn").textContent = en ? "SO" : "EN";
+  applyLangAttrs();
+  renderAll();
+});
+if(localStorage.getItem(LS.lang) === "en"){
+  document.body.classList.add("lang-en");
+  document.getElementById("langBtn").textContent = "SO";
+}
+
+/* ======================= TABS ======================= */
+document.querySelectorAll("nav.tabbar .tab").forEach(btn=>{
+  btn.addEventListener("click", ()=>{
+    document.querySelectorAll("nav.tabbar .tab").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+    document.getElementById(btn.dataset.tab).classList.add("active");
+  });
+});
+
+/* ======================= WORD OF THE DAY ======================= */
+function renderWordOfDay(){
+  const words = loadWords();
+  const dayIndex = new Date().getDate() % words.length;
+  const w = words[dayIndex];
+  const el = document.getElementById("wordOfDay");
+  el.innerHTML = `
+    <span class="word">${w.term}</span><span class="pos">${w.tag}</span>
+    <div class="def">${isEN() ? (w.en||w.def) : w.def}</div>
+    <div class="ex">${w.ex}</div>`;
+}
+
+/* ======================= DICTIONARY ======================= */
+function renderDict(filter=""){
+  const list = document.getElementById("dictList");
+  const words = loadWords().filter(w => w.term.toLowerCase().includes(filter.toLowerCase()) || w.def.toLowerCase().includes(filter.toLowerCase()));
+  document.getElementById("dictCount").textContent = loadWords().length + (isEN() ? " words" : " eray");
+  if(words.length===0){
+    list.innerHTML = `<div class="empty">${isEN() ? "No words found. Be the first to add it." : "Wax lama helin. Adigu noqo kii ugu horreeyay ee ku dara."}</div>`;
+    return;
+  }
+  list.innerHTML = words.map(w=>`
+    <div class="entry">
+      <div class="head">
+        <span class="term">${w.term}</span>
+        <span class="tag">${w.tag}</span>
+        ${w.audio ? `<button class="playbtn" onclick="playAudio('${w.audio}')">▶</button>` : ""}
+      </div>
+      <div class="def">${isEN() ? (w.en||w.def) : w.def}</div>
+      ${w.ex ? `<div class="ex">"${w.ex}"</div>` : ""}
+      ${w.contributor ? `<div class="meta">${isEN() ? "Added by community" : "Waxaa ku daray bulshada"}</div>` : ""}
+    </div>`).join("");
+}
+document.getElementById("dictSearch").addEventListener("input", e => renderDict(e.target.value));
+
+/* Add word modal */
+const wordOverlay = document.getElementById("wordOverlay");
+let recordedAudio = null;
+document.getElementById("addWordFab").addEventListener("click", ()=>{
+  document.getElementById("f-term").value="";
+  document.getElementById("f-def").value="";
+  document.getElementById("f-ex").value="";
+  recordedAudio = null;
+  document.getElementById("f-rec").classList.remove("recording");
+  wordOverlay.classList.add("show");
+});
+document.getElementById("wordCancel").addEventListener("click", ()=> wordOverlay.classList.remove("show"));
+document.getElementById("wordSave").addEventListener("click", ()=>{
+  const term = document.getElementById("f-term").value.trim();
+  const def = document.getElementById("f-def").value.trim();
+  if(!term || !def){ alert(isEN() ? "Please fill in the word and definition." : "Fadlan buuxi erayga iyo micnihiisa."); return; }
+  saveCustomWord({
+    term, tag: document.getElementById("f-tag").value, def,
+    ex: document.getElementById("f-ex").value.trim(), audio: recordedAudio, contributor:true
+  });
+  wordOverlay.classList.remove("show");
+  renderDict(document.getElementById("dictSearch").value);
+});
+
+/* simple audio recording via MediaRecorder, stored as base64 in-session */
+let mediaRecorder, chunks=[];
+document.getElementById("f-rec").addEventListener("click", async ()=>{
+  const btn = document.getElementById("f-rec");
+  if(!navigator.mediaDevices){ alert(isEN() ? "Microphone not available in this browser." : "Mikroofonka lama heli karo browser-kan."); return; }
+  if(btn.classList.contains("recording")){
+    mediaRecorder.stop();
+    btn.classList.remove("recording");
+    return;
+  }
+  try{
+    const stream = await navigator.mediaDevices.getUserMedia({audio:true});
+    chunks=[];
+    mediaRecorder = new MediaRecorder(stream);
+    mediaRecorder.ondataavailable = e => chunks.push(e.data);
+    mediaRecorder.onstop = () => {
+      const blob = new Blob(chunks, {type:"audio/webm"});
+      const reader = new FileReader();
+      reader.onloadend = () => { recordedAudio = reader.result; };
+      reader.readAsDataURL(blob);
+      stream.getTracks().forEach(t=>t.stop());
+    };
+    mediaRecorder.start();
+    btn.classList.add("recording");
+  }catch(err){
+    alert(isEN() ? "Microphone access denied." : "Ma la helin ogolaanshaha mikroofonka.");
+  }
+});
+function playAudio(dataUrl){ new Audio(dataUrl).play(); }
+
+/* ======================= ARCHIVE ======================= */
+function renderArchive(){
+  const list = document.getElementById("archiveList");
+  const proverbs = loadProverbs();
+  document.getElementById("archiveCount").textContent = proverbs.length + (isEN() ? " proverbs" : " maahmaah");
+  list.innerHTML = proverbs.map(p=>`
+    <div class="proverb">
+      <span class="mark">"</span>
+      <div class="so">${p.so}</div>
+      <div class="en">${p.en}</div>
+      ${(p.note || p.noteEn) ? `<div class="note">${isEN() ? (p.noteEn||p.note) : p.note}</div>` : ""}
+    </div>`).join("");
+}
+const proverbOverlay = document.getElementById("proverbOverlay");
+document.getElementById("addProverbFab").addEventListener("click", ()=>{
+  document.getElementById("p-so").value="";
+  document.getElementById("p-en").value="";
+  document.getElementById("p-note").value="";
+  proverbOverlay.classList.add("show");
+});
+document.getElementById("proverbCancel").addEventListener("click", ()=> proverbOverlay.classList.remove("show"));
+document.getElementById("proverbSave").addEventListener("click", ()=>{
+  const so = document.getElementById("p-so").value.trim();
+  if(!so){ alert(isEN() ? "Please write the proverb." : "Fadlan qor maahmaahda."); return; }
+  saveCustomProverb({so, en:document.getElementById("p-en").value.trim(), note:document.getElementById("p-note").value.trim()});
+  proverbOverlay.classList.remove("show");
+  renderArchive();
+});
+
+/* ======================= LESSONS ======================= */
+function renderLessonHome(){
+  const progress = getProgress();
+  const list = document.getElementById("lessonList");
+  document.getElementById("lessonCount").textContent = LESSONS.length + (isEN() ? " lessons" : " cashar");
+  list.innerHTML = LESSONS.map(l=>`
+    <div class="lesson" onclick="openLesson('${l.id}')">
+      <div class="num">${l.num}</div>
+      <div class="info">
+        <h3>${isEN() ? l.titleEn : l.title}</h3>
+        <p>${isEN() ? l.descEn : l.desc}</p>
+      </div>
+      <div class="prog">${progress[l.id] ? "✓" : ""}</div>
+    </div>`).join("");
+}
+
+let currentLesson=null, cardIdx=0, quizIdx=0;
+function openLesson(id){
+  currentLesson = LESSONS.find(l=>l.id===id);
+  cardIdx=0; quizIdx=0;
+  document.getElementById("lessonHome").classList.add("hide");
+  document.getElementById("lessonRunner").classList.remove("hide");
+  renderFlash();
+}
+function closeLesson(){
+  document.getElementById("lessonHome").classList.remove("hide");
+  document.getElementById("lessonRunner").classList.add("hide");
+  renderLessonHome();
+}
+function renderFlash(){
+  const runner = document.getElementById("lessonRunner");
+  const c = currentLesson.cards[cardIdx];
+  runner.innerHTML = `
+    <div class="sectiontitle">
+      <h2>${isEN() ? currentLesson.titleEn : currentLesson.title}</h2>
+      <span class="count">${cardIdx+1}/${currentLesson.cards.length}</span>
+    </div>
+    <div class="flash" id="flashcard">
+      <div class="f-word">${c.word}</div>
+      <div class="f-hint" id="fhint">${isEN() ? "Tap to reveal" : "Taabo si aad u aragto"}</div>
+      <div class="f-back" id="fback">${c.back}</div>
+    </div>
+    <div class="flashnav">
+      <button onclick="closeLesson()">${isEN() ? "Exit" : "Ka bax"}</button>
+      <button class="primary" id="nextCardBtn">${isEN() ? "Next" : "Xiga"}</button>
+    </div>`;
+  document.getElementById("flashcard").addEventListener("click", ()=>{
+    document.getElementById("fback").style.display="block";
+    document.getElementById("fhint").style.display="none";
+  });
+  document.getElementById("nextCardBtn").addEventListener("click", ()=>{
+    if(cardIdx < currentLesson.cards.length-1){ cardIdx++; renderFlash(); }
+    else { quizIdx=0; renderQuiz(); }
+  });
+}
+function renderQuiz(){
+  const runner = document.getElementById("lessonRunner");
+  if(quizIdx >= currentLesson.quiz.length){
+    setLessonDone(currentLesson.id);
+    runner.innerHTML = `
+      <div class="card-inner" style="text-align:center;">
+        <h2 style="margin-bottom:6px;">${isEN() ? "Lesson complete!" : "Cashar dhammaystiran!"}</h2>
+        <p style="opacity:0.6; font-size:14px;">${isEN() ? "Great work — keep building your Somali." : "Shaqo fiican — sii wad barashada Af Soomaaliga."}</p>
+        <button class="flashnav" style="margin-top:16px;" onclick="closeLesson()">
+        </button>
+        <button onclick="closeLesson()" style="margin-top:10px; padding:12px 20px; border-radius:12px; border:none; background:var(--teal); color:#fff; font-weight:700; cursor:pointer;">${isEN() ? "Back to lessons" : "Ku noqo casharada"}</button>
+      </div>`;
+    return;
+  }
+  const q = currentLesson.quiz[quizIdx];
+  runner.innerHTML = `
+    <div class="card-inner">
+      <div class="quizq">${q.q}</div>
+      <div id="quizopts">
+        ${q.opts.map((o,i)=>`<button class="quizopt" data-i="${i}">${o}</button>`).join("")}
+      </div>
+    </div>
+    <div class="flashnav"><button onclick="closeLesson()">${isEN() ? "Exit" : "Ka bax"}</button></div>`;
+  document.querySelectorAll(".quizopt").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      const i = parseInt(btn.dataset.i);
+      document.querySelectorAll(".quizopt").forEach(b=>b.disabled=true);
+      if(i===q.correct){ btn.classList.add("correct"); }
+      else { btn.classList.add("wrong"); document.querySelectorAll(".quizopt")[q.correct].classList.add("correct"); }
+      setTimeout(()=>{ quizIdx++; renderQuiz(); }, 900);
+    });
+  });
+}
+
+/* ======================= INIT ======================= */
+function renderAll(){
+  renderWordOfDay();
+  renderDict(document.getElementById("dictSearch").value);
+  renderArchive();
+  renderLessonHome();
+  renderLibrary();
+}
+applyLangAttrs();
+renderAll();
+
+if("serviceWorker" in navigator){
+  window.addEventListener("load", ()=>{
+    navigator.serviceWorker.register("sw.js").catch(()=>{});
+  });
+}
+</script>
+</body>
+</html>
