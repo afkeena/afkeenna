@@ -60,9 +60,11 @@ header.top{
   color:var(--sand);
   padding:22px 20px 26px;
   position:relative;
-  overflow:hidden;
 }
-header.top::after{
+.headerDeco{
+  position:absolute; inset:0; overflow:hidden; border-radius:inherit; pointer-events:none; z-index:0;
+}
+.headerDeco::after{
   content:"";
   position:absolute; right:-40px; top:-40px;
   width:180px; height:180px; border-radius:50%;
@@ -221,6 +223,30 @@ nav.tabbar button svg{width:21px; height:21px;}
 nav.tabbar button span{font-size:10.5px; font-weight:600;}
 
 /* ---------- modal ---------- */
+.headerBtns{display:flex; align-items:center; gap:8px;}
+.iconbtn{
+  background:rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.3); color:#fff;
+  width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer;
+}
+.iconbtn svg{width:19px; height:19px;}
+.dropdown{
+  position:fixed; background-color:#FBF7EE; opacity:1; border-radius:14px; box-shadow:0 10px 30px rgba(27,20,10,0.35);
+  min-width:210px; padding:6px; display:none; flex-direction:column; gap:2px; z-index:200; border:1px solid var(--line);
+  backdrop-filter:none; -webkit-backdrop-filter:none; isolation:isolate;
+}
+.dropdown.show{display:flex;}
+.dditem{
+  background-color:transparent; opacity:1; border:none; text-align:left; padding:12px 14px; border-radius:9px; font-size:14px; font-weight:600;
+  color:var(--night); cursor:pointer; font-family:'Work Sans',sans-serif; white-space:nowrap; line-height:1.3;
+}
+.dditem:active{background:var(--sand);}
+.sheetHead{display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; position:sticky; top:0; background:#FBF7EE; padding-top:2px;}
+.sheetHead h2{font-size:20px; margin:0;}
+.closeBtn{background:none; border:none; font-size:18px; color:var(--ink); opacity:0.6; cursor:pointer; padding:4px 8px;}
+.sheetBody h3{font-size:15px; margin:18px 0 6px; color:var(--henna-dk);}
+.sheetBody h3:first-child{margin-top:0;}
+.sheetBody p{font-size:14px; line-height:1.65; margin:0 0 4px; opacity:0.88;}
+.sheetBody a{color:var(--teal-dk); font-weight:700; text-decoration:underline;}
 .overlay{
   position:fixed; inset:0; background:rgba(27,20,10,0.5); z-index:50; display:none;
   align-items:flex-end; justify-content:center;
@@ -246,6 +272,13 @@ nav.tabbar button span{font-size:10.5px; font-weight:600;}
   color:var(--teal-dk); font-weight:600; cursor:pointer; font-size:13.5px;
 }
 .recbtn.recording{background:rgba(193,98,45,0.1); border-color:var(--henna); color:var(--henna-dk);}
+.recStatus{display:flex; align-items:center; gap:10px; margin-top:8px; font-size:13px; min-height:18px;}
+.recStatus.ok{color:var(--teal-dk); font-weight:600;}
+.recStatus .playBtn{background:none; border:1px solid var(--teal-dk); color:var(--teal-dk); border-radius:20px; padding:3px 12px; font-size:12px; font-weight:700; cursor:pointer;}
+.contactForm{margin-top:10px;}
+.contactStatus{font-size:13px; margin-top:10px; text-align:center; min-height:16px;}
+.contactStatus.ok{color:var(--teal-dk); font-weight:600;}
+.contactStatus.err{color:var(--henna-dk); font-weight:600;}
 
 .hide{display:none !important;}
 [data-en]{display:none;}
@@ -256,6 +289,7 @@ body.lang-en [data-so]{display:none;}
 <body>
 
 <header class="top">
+  <div class="headerDeco"></div>
   <div class="brandrow">
     <div class="brand">
       <div class="brandmark">A</div>
@@ -265,7 +299,12 @@ body.lang-en [data-so]{display:none;}
         <div class="sub" data-en>Preserve the language, preserve the culture</div>
       </div>
     </div>
-    <button class="langtoggle" id="langBtn">EN</button>
+    <div class="headerBtns">
+      <button class="iconbtn" id="menuBtn" title="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+      <button class="langtoggle" id="langBtn">EN</button>
+    </div>
   </div>
   <div class="hero">
     <div class="eyebrow" data-so>Erayga Maanta</div>
@@ -273,7 +312,70 @@ body.lang-en [data-so]{display:none;}
     <div class="wordcard" id="wordOfDay"></div>
   </div>
 </header>
+<div class="dropdown" id="menuDropdown">
+  <button class="dditem" data-target="about"><span data-so>Ku Saabsan</span><span data-en>About</span></button>
+  <button class="dditem" data-target="how"><span data-so>Sidee u Shaqaysaa</span><span data-en>How it Works</span></button>
+  <button class="dditem" data-target="contribute"><span data-so>Sidee Wax Loo Daraa</span><span data-en>How to Contribute</span></button>
+  <button class="dditem" data-target="credits"><span data-so>Ammaan/Xaq-sheegasho</span><span data-en>Credits</span></button>
+  <button class="dditem" data-target="contact"><span data-so>Nala Soo Xidhiidh</span><span data-en>Contact</span></button>
+</div>
 <div class="weave"></div>
+
+<!-- ABOUT / CONTACT OVERLAY -->
+<div class="overlay" id="infoOverlay">
+  <div class="modal" id="infoModal">
+    <div class="sheetHead">
+      <h2 data-so>Ku Saabsan Afkeenna</h2><h2 data-en>About Afkeenna</h2>
+      <button class="closeBtn" id="infoClose">✕</button>
+    </div>
+    <div class="sheetBody">
+      <h3 id="sec-about" data-so>Waa Maxay?</h3><h3 data-en>What is it?</h3>
+      <p data-so>Afkeenna waa app loogu talagalay in la ilaaliyo afka iyo dhaqanka Soomaalida — gaar ahaan qurbo-joogta iyo dhalinyarada. Ma aha oo keliya qaamuus; waxay isku daraysaa casharo, ereyo cusub, iyo kayd dhaqameed oo ay bulshadu wax ku darto.</p>
+      <p data-en>Afkeenna is an app dedicated to preserving the Somali language and culture — especially for the diaspora and younger generations. It's not just a dictionary; it combines lessons, new/dialect vocabulary, and a community-built heritage archive.</p>
+
+      <h3 id="sec-how" data-so>Sidee u Shaqaysaa?</h3><h3 data-en>How does it work?</h3>
+      <p data-so><strong>Qaamuus</strong> — ereyo cusub iyo kuwo af-dhaqameed, aan ka iman qaamuuska rasmiga ah (fiiri qaybta Maktabadda).<br>
+      <strong>Casharo</strong> — casharo fudud oo lagu barto alifbeetada, salaanta, iyo hadalka maalinlaha ah.<br>
+      <strong>Kaydka Dhaqanka</strong> — maahmaahyo, sheekooyin, iyo caadooyin dhaqameed sida aroosyada iyo xeerarka, oo bulshadu ku darto.<br>
+      <strong>Maktabadda</strong> — qaamuusyada rasmiga ah ee taariikhiga ah, oo la keydiyay si aanay u lumin.</p>
+      <p data-en><strong>Qaamuus</strong> — new and dialect words not found in the official dictionary (see Maktabadda for that).<br>
+      <strong>Casharo</strong> — simple lessons covering the alphabet, greetings, and everyday speech.<br>
+      <strong>Kaydka Dhaqanka</strong> — proverbs, stories, and traditions like weddings and customs, added by the community.<br>
+      <strong>Maktabadda</strong> — the historic official dictionaries, mirrored here so they're never lost.</p>
+
+      <h3 id="sec-contribute" data-so>Sidee Wax Loogu Daraa?</h3><h3 data-en>How to contribute</h3>
+      <p data-so>Isticmaal badhanka "+" ee ku yaal Qaamuuska ama Kaydka Dhaqanka si aad u darto eray, maahmaah, sheeko, ama caado dhaqameed aad taqaan. Wixii aad ku darto waxay ka caawin doonaan qof kale inuu wax bartaa ama xasuusto.</p>
+      <p data-en>Use the "+" button on the Qaamuus or Kaydka Dhaqanka tabs to add a word, proverb, story, or custom you know. What you add helps someone else learn or remember it.</p>
+
+      <h3 id="sec-credits" data-so>Ammaan/Xaq-sheegasho</h3><h3 data-en>Credits</h3>
+      <p data-so>Qaamuuska Af-Soomaaliga (2012) — Annarita Puglielli iyo Cabdalla Cumar Mansuur, RomaTrE-Press / Centro Studi Somali. Qaamuuskii 1976 — Yaasiin C. Keenadiid. Labadaba waxaa lagu keydiyay Maktabadda, iyagoo aan la beddelin, si loo ilaaliyo xaqooda.</p>
+      <p data-en>Qaamuuska Af-Soomaaliga (2012) — Annarita Puglielli and Cabdalla Cumar Mansuur, RomaTrE-Press / Centro Studi Somali. The 1976 dictionary — Yaasiin C. Keenadiid. Both are mirrored in Maktabadda, unmodified, to respect their rights.</p>
+
+      <h3 id="sec-contact" data-so>Nala Soo Xidhiidh</h3><h3 data-en>Contact</h3>
+      <p data-so>Wax dhaliil ah, soo jeedin, ama su'aal ma haysaa? Foomka hoose buuxi.</p>
+      <p data-en>Questions, feedback, or suggestions? Fill in the form below.</p>
+      <form id="contactForm" class="contactForm">
+        <div class="field">
+          <label data-so>Magaca</label><label data-en>Name</label>
+          <input type="text" id="c-name" name="name" required>
+        </div>
+        <div class="field">
+          <label data-so>Emailka</label><label data-en>Email</label>
+          <input type="email" id="c-email" name="email" required>
+        </div>
+        <div class="field">
+          <label data-so>Fariinta</label><label data-en>Message</label>
+          <textarea id="c-message" name="message" required></textarea>
+        </div>
+        <button type="submit" class="btnsave" id="contactSubmit" style="width:100%; padding:13px; border-radius:12px; border:none;">
+          <span data-so>Dir</span><span data-en>Send</span>
+        </button>
+        <p id="contactStatus" class="contactStatus"></p>
+      </form>
+
+    </div>
+  </div>
+</div>
 
 <main>
   <!-- DICTIONARY -->
@@ -389,6 +491,7 @@ body.lang-en [data-so]{display:none;}
     </div>
     <div class="field">
       <button class="recbtn" id="f-rec"><span data-so>🎙 Duub codka erayga</span><span data-en>🎙 Record pronunciation</span></button>
+      <div id="recStatus" class="recStatus"></div>
     </div>
     <div class="modalbtns">
       <button class="btncancel" id="wordCancel" data-so="Jooji" data-en="Cancel">Jooji</button>
@@ -428,6 +531,21 @@ body.lang-en [data-so]{display:none;}
   </div>
 </div>
 
+<!-- Firebase (shared community database for words & proverbs/customs) -->
+<script src="https://www.gstatic.com/firebasejs/12.10.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore-compat.js"></script>
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyDlDnNkBogB0xXxaB8So3HMr3euZOyHQMk",
+    authDomain: "afkeena-f1143.firebaseapp.com",
+    projectId: "afkeena-f1143",
+    storageBucket: "afkeena-f1143.firebasestorage.app",
+    messagingSenderId: "150562705402",
+    appId: "1:150562705402:web:ee8ff7c3c9963f1aca9e43"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+</script>
 <script>
 /* ======================= SEED DATA ======================= */
 /* Dictionary entries below are written as original, plain-language
@@ -662,23 +780,49 @@ function renderLibrary(){
 const LS = {
   words: "afk_words", proverbs:"afk_proverbs", lang:"afk_lang", progress:"afk_progress"
 };
+/* Shared community data, kept live via Firestore real-time listeners.
+   SEED_WORDS/SEED_PROVERBS are the built-in base set (same for everyone, bundled in the app).
+   sharedWords/sharedProverbs are what the community has contributed, synced from Firestore. */
+let sharedWords = [];
+let sharedProverbs = [];
+let firestoreReady = false;
+
+db.collection("words").orderBy("createdAt", "asc").onSnapshot(snap=>{
+  sharedWords = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+  firestoreReady = true;
+  if(document.getElementById("dictList")) renderDict(document.getElementById("dictSearch").value);
+  if(document.getElementById("wordOfDay")) renderWordOfDay();
+}, err=>{
+  console.error("words sync error", err);
+});
+db.collection("proverbs").orderBy("createdAt", "asc").onSnapshot(snap=>{
+  sharedProverbs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+  if(document.getElementById("archiveList")) renderArchive();
+}, err=>{
+  console.error("proverbs sync error", err);
+});
+
 function loadWords(){
-  const custom = JSON.parse(localStorage.getItem(LS.words) || "[]");
-  return SEED_WORDS.concat(custom);
+  return SEED_WORDS.concat(sharedWords);
 }
-function saveCustomWord(w){
-  const custom = JSON.parse(localStorage.getItem(LS.words) || "[]");
-  custom.push(w);
-  localStorage.setItem(LS.words, JSON.stringify(custom));
+async function saveCustomWord(w){
+  if(w.audio && w.audio.length > 900000){
+    throw new Error("Recording too long — please keep it under ~10 seconds.");
+  }
+  await db.collection("words").add({
+    term: w.term, tag: w.tag, def: w.def, ex: w.ex || "",
+    audio: w.audio || null, contributor: true,
+    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+  });
 }
 function loadProverbs(){
-  const custom = JSON.parse(localStorage.getItem(LS.proverbs) || "[]");
-  return SEED_PROVERBS.concat(custom);
+  return SEED_PROVERBS.concat(sharedProverbs);
 }
-function saveCustomProverb(p){
-  const custom = JSON.parse(localStorage.getItem(LS.proverbs) || "[]");
-  custom.push(p);
-  localStorage.setItem(LS.proverbs, JSON.stringify(custom));
+async function saveCustomProverb(p){
+  await db.collection("proverbs").add({
+    cat: p.cat, so: p.so, en: p.en || "", note: p.note || "",
+    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+  });
 }
 function getProgress(){ return JSON.parse(localStorage.getItem(LS.progress) || "{}"); }
 function setLessonDone(id){
@@ -763,25 +907,39 @@ document.getElementById("addWordFab").addEventListener("click", ()=>{
   document.getElementById("f-ex").value="";
   recordedAudio = null;
   document.getElementById("f-rec").classList.remove("recording");
+  document.getElementById("recStatus").innerHTML = "";
+  document.getElementById("recStatus").className = "recStatus";
   wordOverlay.classList.add("show");
 });
 document.getElementById("wordCancel").addEventListener("click", ()=> wordOverlay.classList.remove("show"));
-document.getElementById("wordSave").addEventListener("click", ()=>{
+document.getElementById("wordSave").addEventListener("click", async ()=>{
   const term = document.getElementById("f-term").value.trim();
   const def = document.getElementById("f-def").value.trim();
   if(!term || !def){ alert(isEN() ? "Please fill in the word and definition." : "Fadlan buuxi erayga iyo micnihiisa."); return; }
-  saveCustomWord({
-    term, tag: document.getElementById("f-tag").value, def,
-    ex: document.getElementById("f-ex").value.trim(), audio: recordedAudio, contributor:true
-  });
-  wordOverlay.classList.remove("show");
-  renderDict(document.getElementById("dictSearch").value);
+  const btn = document.getElementById("wordSave");
+  const originalText = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = isEN() ? "Saving..." : "Waa la kaydinayaa...";
+  try{
+    await saveCustomWord({
+      term, tag: document.getElementById("f-tag").value, def,
+      ex: document.getElementById("f-ex").value.trim(), audio: recordedAudio
+    });
+    wordOverlay.classList.remove("show");
+  }catch(err){
+    console.error(err);
+    alert(isEN() ? "Could not save — check your connection and try again." : "Lama kaydin karin — hubi xiriirkaaga internet-ka oo isku day mar kale.");
+  }finally{
+    btn.disabled = false;
+    btn.textContent = originalText;
+  }
 });
 
 /* simple audio recording via MediaRecorder, stored as base64 in-session */
 let mediaRecorder, chunks=[];
 document.getElementById("f-rec").addEventListener("click", async ()=>{
   const btn = document.getElementById("f-rec");
+  const status = document.getElementById("recStatus");
   if(!navigator.mediaDevices){ alert(isEN() ? "Microphone not available in this browser." : "Mikroofonka lama heli karo browser-kan."); return; }
   if(btn.classList.contains("recording")){
     mediaRecorder.stop();
@@ -791,12 +949,19 @@ document.getElementById("f-rec").addEventListener("click", async ()=>{
   try{
     const stream = await navigator.mediaDevices.getUserMedia({audio:true});
     chunks=[];
+    status.className = "recStatus";
+    status.innerHTML = isEN() ? "Recording..." : "Waa la duubayaa...";
     mediaRecorder = new MediaRecorder(stream);
     mediaRecorder.ondataavailable = e => chunks.push(e.data);
     mediaRecorder.onstop = () => {
       const blob = new Blob(chunks, {type:"audio/webm"});
       const reader = new FileReader();
-      reader.onloadend = () => { recordedAudio = reader.result; };
+      reader.onloadend = () => {
+        recordedAudio = reader.result;
+        status.className = "recStatus ok";
+        status.innerHTML = (isEN() ? "✓ Recorded" : "✓ Waa la duubay") + ` <button type="button" class="playBtn" id="previewPlay">${isEN() ? "▶ Play" : "▶ Dhagayso"}</button>`;
+        document.getElementById("previewPlay").addEventListener("click", ()=> playAudio(recordedAudio));
+      };
       reader.readAsDataURL(blob);
       stream.getTracks().forEach(t=>t.stop());
     };
@@ -835,12 +1000,87 @@ document.getElementById("addProverbFab").addEventListener("click", ()=>{
   proverbOverlay.classList.add("show");
 });
 document.getElementById("proverbCancel").addEventListener("click", ()=> proverbOverlay.classList.remove("show"));
-document.getElementById("proverbSave").addEventListener("click", ()=>{
+document.getElementById("proverbSave").addEventListener("click", async ()=>{
   const so = document.getElementById("p-so").value.trim();
   if(!so){ alert(isEN() ? "Please write the entry." : "Fadlan qor qodobka."); return; }
-  saveCustomProverb({cat:document.getElementById("p-cat").value, so, en:document.getElementById("p-en").value.trim(), note:document.getElementById("p-note").value.trim()});
-  proverbOverlay.classList.remove("show");
-  renderArchive();
+  const btn = document.getElementById("proverbSave");
+  const originalText = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = isEN() ? "Saving..." : "Waa la kaydinayaa...";
+  try{
+    await saveCustomProverb({cat:document.getElementById("p-cat").value, so, en:document.getElementById("p-en").value.trim(), note:document.getElementById("p-note").value.trim()});
+    proverbOverlay.classList.remove("show");
+  }catch(err){
+    console.error(err);
+    alert(isEN() ? "Could not save — check your connection and try again." : "Lama kaydin karin — hubi xiriirkaaga internet-ka oo isku day mar kale.");
+  }finally{
+    btn.disabled = false;
+    btn.textContent = originalText;
+  }
+});
+
+/* ======================= ABOUT / INFO ======================= */
+const infoOverlay = document.getElementById("infoOverlay");
+const menuDropdown = document.getElementById("menuDropdown");
+const menuBtn = document.getElementById("menuBtn");
+menuBtn.addEventListener("click", (e)=>{
+  e.stopPropagation();
+  const isShowing = menuDropdown.classList.contains("show");
+  if(isShowing){
+    menuDropdown.classList.remove("show");
+  } else {
+    const r = menuBtn.getBoundingClientRect();
+    menuDropdown.style.top = (r.bottom + 8) + "px";
+    menuDropdown.style.right = (window.innerWidth - r.right) + "px";
+    menuDropdown.classList.add("show");
+  }
+});
+document.addEventListener("click", (e)=>{
+  if(!menuDropdown.contains(e.target)) menuDropdown.classList.remove("show");
+});
+document.querySelectorAll(".dditem").forEach(btn=>{
+  btn.addEventListener("click", ()=>{
+    menuDropdown.classList.remove("show");
+    infoOverlay.classList.add("show");
+    const target = document.getElementById("sec-" + btn.dataset.target);
+    if(target) setTimeout(()=> target.scrollIntoView({behavior:"smooth", block:"start"}), 80);
+  });
+});
+document.getElementById("infoClose").addEventListener("click", ()=> infoOverlay.classList.remove("show"));
+infoOverlay.addEventListener("click", (e)=>{ if(e.target === infoOverlay) infoOverlay.classList.remove("show"); });
+
+/* Contact form — replace YOUR_FORM_ID with your Formspree endpoint ID (formspree.io) */
+const CONTACT_ENDPOINT = "https://formspree.io/f/YOUR_FORM_ID";
+document.getElementById("contactForm").addEventListener("submit", async (e)=>{
+  e.preventDefault();
+  const status = document.getElementById("contactStatus");
+  const btn = document.getElementById("contactSubmit");
+  const data = {
+    name: document.getElementById("c-name").value.trim(),
+    email: document.getElementById("c-email").value.trim(),
+    message: document.getElementById("c-message").value.trim()
+  };
+  btn.disabled = true;
+  status.className = "contactStatus";
+  status.textContent = isEN() ? "Sending..." : "Waa la dirayaa...";
+  try{
+    const res = await fetch(CONTACT_ENDPOINT, {
+      method:"POST",
+      headers:{"Content-Type":"application/json", "Accept":"application/json"},
+      body: JSON.stringify(data)
+    });
+    if(res.ok){
+      status.className = "contactStatus ok";
+      status.textContent = isEN() ? "Message sent — thank you!" : "Fariintu way tagtay — mahadsanid!";
+      document.getElementById("contactForm").reset();
+    } else {
+      throw new Error("send failed");
+    }
+  } catch(err){
+    status.className = "contactStatus err";
+    status.textContent = isEN() ? "Couldn't send. Please try again." : "Lama dirin. Fadlan isku day mar kale.";
+  }
+  btn.disabled = false;
 });
 
 /* ======================= LESSONS ======================= */
